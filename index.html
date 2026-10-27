@@ -261,6 +261,37 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
 .sol .dec{display:flex;flex-direction:column;gap:8px;min-width:220px}
 .sol select,.sol input{font:14px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
 .sol .fila{display:flex;gap:8px;flex-wrap:wrap}
+/* asistente de doctrina */
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.asis{max-width:820px}
+.asis-form{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.asis-form textarea{width:100%;box-sizing:border-box;font:16px/1.5 var(--body);color:var(--ink);background:var(--surface-2);
+  border:1px solid var(--line);border-radius:6px;padding:10px 12px;resize:vertical;min-height:84px}
+.asis-form textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.asis-pie{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+.asis-cont{font:12px var(--mono);color:var(--muted)}
+.asis-aviso{font-size:14px;color:var(--muted);margin:12px 0 16px;padding-left:12px;border-left:3px solid var(--accent-2)}
+.asis-aviso b{color:var(--ink);font-weight:600}
+.asis-ej{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.asis-ej span{font:11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:100%}
+.asis-ej button{font:14px var(--body);color:var(--ink);background:none;border:1px dashed var(--line);border-radius:6px;padding:8px 11px;cursor:pointer;text-align:left}
+.asis-ej button:hover{border-color:var(--accent)}
+.asis-hilo{display:flex;flex-direction:column-reverse;gap:16px}
+.asis-r{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.asis-q{font:600 18px var(--display);margin:0 0 10px}
+.asis-txt p{margin:0 0 10px;line-height:1.6}.asis-txt ul{margin:0 0 10px;padding-left:20px}.asis-txt li{margin-bottom:6px;line-height:1.55}
+.asis-txt .cita{white-space:nowrap;font:500 12.5px var(--mono);color:var(--accent);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+.asis-txt .cita.sin{color:var(--muted);cursor:default;text-decoration:none}
+.asis-esperando{color:var(--muted);font-style:italic}
+.asis-err{color:#FFB4BE}
+.asis-fuentes{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;padding-top:10px;border-top:1px solid var(--line)}
+.asis-fuentes b{font:11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:100%}
+.asis-fuentes .f{font:12.5px var(--mono);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:4px 8px;cursor:pointer}
+.asis-fuentes .f:hover{border-color:var(--accent)}.asis-fuentes .f.sin{cursor:default;color:var(--muted)}
+.asis-val{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;font-size:14px;color:var(--muted)}
+.asis-val button{font-size:16px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.asis-val button[aria-pressed="true"]{border-color:var(--accent);background:rgba(91,192,255,.1)}
+.asis-val input{flex:1;min-width:180px;font:14px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:6px 9px}
 /* lector de manuales: pantalla completa, páginas que se dibujan al acercarse */
 body.leyendo{overflow:hidden}
 .visor{position:fixed;inset:0;z-index:60;background:#0A1022;display:flex;flex-direction:column;outline:none}
@@ -417,7 +448,7 @@ body.leyendo{overflow:hidden}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>window.PORTAL_CFG={"url": "https://ieizlhzkxcrsmwxkktog.supabase.co", "llave": "sb_publishable_7Qs3O2OE0848zZd7lCHY0g_x6BQR2Au", "pdfjs": "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/"};</script>
-<script>var PLANOS={"satelite": "escena/satelite.webp", "aeronave": "escena/aeronave.webp", "paracaidista": "escena/paracaidista.webp", "fragata": "escena/fragata.webp", "blindado": "escena/blindado.webp", "soldado": "escena/soldado.webp"};</script>
+<script>var PLANOS={"satelite": "escena/satelite.webp", "aeronave": "escena/aeronave.webp", "paracaidista": "escena/paracaidista.webp", "fragata": "escena/fragata.webp", "blindado": "escena/blindado.webp"};</script>
 <script>
 (function(){
   /* ---------- navegación por secciones ---------- */
@@ -500,8 +531,7 @@ body.leyendo{overflow:hidden}
     {n:'aeronave',x:.15,y:.24,w:330,r:'AIRE'},
     {n:'paracaidista',x:.62,y:.14,w:140,r:''},
     {n:'fragata',x:.18,y:'hz',w:360,r:'MAR',refl:true},
-    {n:'blindado',x:.83,y:'hz',w:300,r:'TIERRA',refl:true},
-    {n:'soldado',x:.055,y:'pie',w:250,r:''}];
+    {n:'blindado',x:.83,y:'hz',w:300,r:'TIERRA',refl:true}];
   var ESC_ANGOSTA=[
     {n:'satelite',x:.80,y:.31,w:80,r:''},
     {n:'aeronave',x:.24,y:.28,w:170,r:''},
@@ -553,7 +583,7 @@ body.leyendo{overflow:hidden}
     var esc=W<700?Math.max(.8,W/430):Math.max(.62,Math.min(W/1425,H/740)*1.05);
     anclasVivas=anclas(hz,esc);
     g.save(); g.lineWidth=1.1; g.setLineDash([3,7]); g.strokeStyle='rgba(120,200,255,.42)';
-    anclasVivas.forEach(function(a){ if(a.e.n==='soldado') return; var k=curva(a);
+    anclasVivas.forEach(function(a){ var k=curva(a);
       g.beginPath(); g.moveTo(a.cx,a.cy); g.quadraticCurveTo(k.mx,k.my,k.nx,k.ny); g.stroke(); });
     g.restore();
     g.save(); g.globalCompositeOperation='lighter';
@@ -581,7 +611,7 @@ body.leyendo{overflow:hidden}
     if(!anclasVivas.length){ if(H<420) desfile(ms); return; }
     var k0=null;
     anclasVivas.forEach(function(a,i){
-      if(a.e.n==='soldado') return; var k=curva(a); k0=k;
+      var k=curva(a); k0=k;
       var t=(ms/3200+i*.21)%1, u=1-t;
       var px=u*u*a.cx+2*u*t*k.mx+t*t*k.nx, py=u*u*a.cy+2*u*t*k.my+t*t*k.ny;
       cx.fillStyle='rgba(255,214,120,.95)'; cx.beginPath(); cx.arc(px,py,2.4,0,6.28); cx.fill();
@@ -597,7 +627,7 @@ body.leyendo{overflow:hidden}
      de izquierda a derecha; el segundo entra un poco después. Cuando salen los dos, entra otro par */
   /* espejo: el plano original mira a la izquierda; se voltea para que avance de frente hacia la derecha */
   var DESFILE=[{n:'aeronave',y:.30,w:170,espejo:true},{n:'fragata',y:'hz',w:190,refl:true},{n:'satelite',y:.26,w:95},
-    {n:'blindado',y:'hz',w:160,refl:true,espejo:true},{n:'paracaidista',y:.20,w:70,baja:true},{n:'soldado',y:'hz',w:64}];
+    {n:'blindado',y:'hz',w:160,refl:true,espejo:true},{n:'paracaidista',y:.20,w:70,baja:true}];
   var dsf={par:[],previo:0,ultimo:''};
   function nuevoPar(){
     var a,b,k;
@@ -827,6 +857,7 @@ body.leyendo{overflow:hidden}
       var res=await fetch('contenido-protegido.json',{cache:'no-store'});
       if(!res.ok) throw new Error('Este botón funciona desde la copia local del portal (localhost:3000), donde está el contenido generado. En el sitio publicado el contenido no se sube como archivo.');
       var d=await res.json();
+      if(d.vista_previa) throw new Error('Este contenido es una vista previa local del asistente y no se carga al portal. Genere el portal sin PORTAL_ASISTENTE.');
       for(var k of ['inicio','secciones','vigia']){var r=await sb.rpc('cargar_contenido',{p_id:k,p_html:d[k]}); if(r.error) throw r.error}
       vigiaCargado=false;
       cargado=false; await cargarContenido(); msj('m-admin','Contenido cargado.','ok');
@@ -967,6 +998,83 @@ body.leyendo{overflow:hidden}
     if(ev.target.id!=='vs-hoja'||marcando) return;
     marcando=requestAnimationFrame(function(){marcando=0; if(document.activeElement!==$('vs-pag')) $('vs-pag').value=paginaActual()});
   },true);
+
+  /* ── asistente de doctrina: la respuesta llega de la función 'asistente'; aquí solo se pinta, sin innerHTML ── */
+  var CITA=/\(([^()]*?\b(?:MFC|MBC|MEC|MAC|MTE|RFM)\s*\d[^()]*?)\)/g;
+  function el(tag,cls,txt){var x=document.createElement(tag); if(cls) x.className=cls; if(txt!=null) x.textContent=txt; return x}
+  function abrirCita(c){
+    var m=c&&c.slug&&document.querySelector('.mn[data-pdf][data-slug="'+c.slug+'"]');
+    if(!m) return;
+    abrirManual(m).then(function(){if(V.doc&&c.pagina) irPagina(c.pagina)});
+  }
+  function conCitas(txt,citas,destino){
+    var porUb={}; citas.forEach(function(c){porUb[c.ubicacion]=c});
+    var i=0; txt.replace(CITA,function(todo,dentro,pos){
+      if(pos>i) destino.append(document.createTextNode(txt.slice(i,pos)));
+      destino.append(document.createTextNode('('));
+      dentro.split(';').forEach(function(parte,k){
+        if(k) destino.append(document.createTextNode('; '));
+        var c=porUb[parte.trim()], b;
+        if(c&&c.visible&&c.slug){b=el('button','cita',parte.trim()); b.type='button'; b.title='Abrir el manual en la página citada'; b.onclick=function(){abrirCita(c)}}
+        else{b=el('span','cita sin',parte.trim()); if(c&&!c.visible) b.title='Manual de uso restringido: se consulta por el canal institucional del CEDCO'}
+        destino.append(b);
+      });
+      destino.append(document.createTextNode(')')); i=pos+todo.length; return todo;
+    });
+    if(i<txt.length) destino.append(document.createTextNode(txt.slice(i)));
+  }
+  function pintarRespuesta(caja,d){
+    var cuerpo=el('div','asis-txt'), lista=null;
+    String(d.respuesta||'').split('\n').forEach(function(l){
+      l=l.trim(); if(!l){lista=null;return}
+      if(/^[-•]\s+/.test(l)){if(!lista){lista=el('ul');cuerpo.append(lista)} var li=el('li'); conCitas(l.replace(/^[-•]\s+/,''),d.citas||[],li); lista.append(li)}
+      else{lista=null; var p=el('p'); conCitas(l,d.citas||[],p); cuerpo.append(p)}
+    });
+    caja.querySelector('.asis-esperando').replaceWith(cuerpo);
+    if((d.citas||[]).length){
+      var f=el('div','asis-fuentes'); f.append(el('b',null,'Fuentes citadas'));
+      d.citas.forEach(function(c){
+        var t=c.ubicacion+(c.visible?'':' · uso restringido');
+        var b=c.visible&&c.slug?el('button','f',t):el('span','f sin',t);
+        if(b.tagName==='BUTTON'){b.type='button';b.onclick=function(){abrirCita(c)}}
+        f.append(b);
+      });
+      caja.append(f);
+    }
+    if(d.id) caja.append(valoracion(d.id));
+  }
+  function valoracion(id){
+    var v=el('div','asis-val'), si=el('button',null,'👍'), no=el('button',null,'👎'), com=el('input'), ok=el('span');
+    v.append(el('span',null,'¿Le sirvió?'),si,no); si.type=no.type='button';
+    si.setAttribute('aria-label','Sí, me sirvió'); no.setAttribute('aria-label','No me sirvió');
+    com.placeholder='¿Qué faltó o qué estuvo mal? (opcional)'; com.maxLength=500; com.hidden=true;
+    async function enviar(valor){
+      si.setAttribute('aria-pressed',valor===1); no.setAttribute('aria-pressed',valor===-1);
+      var r=await sb.rpc('valorar_consulta',{p_id:id,p_valor:valor,p_comentario:com.value||null});
+      ok.textContent=r.error?'No se pudo registrar la valoración.':'Gracias, quedó registrada.';
+    }
+    si.onclick=function(){com.hidden=true;enviar(1)};
+    no.onclick=function(){com.hidden=false;com.focus();enviar(-1)};
+    com.onchange=function(){enviar(-1)};
+    v.append(com,ok); return v;
+  }
+  document.addEventListener('input',function(ev){if(ev.target.id==='asis-preg') $('asis-cont').textContent=ev.target.value.length+' / 600'});
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('.asis-ej button[data-preg]'); if(!b) return;
+    $('asis-preg').value=b.dataset.preg; $('asis-cont').textContent=b.dataset.preg.length+' / 600'; $('asis-preg').focus();
+  });
+  document.addEventListener('submit',async function(ev){
+    if(ev.target.id!=='f-asis') return; ev.preventDefault();
+    var preg=$('asis-preg').value.trim(); if(preg.length<3||!conAcceso(perfil)) return;
+    var caja=el('article','asis-r'); caja.append(el('p','asis-q',preg),el('p','asis-esperando','Buscando en la doctrina cargada…'));
+    $('asis-hilo').append(caja); $('asis-enviar').disabled=true;
+    try{
+      var r=await sb.functions.invoke('asistente',{body:{pregunta:preg}});
+      if(r.error){var m='El asistente no respondió.'; try{m=(await r.error.context.json()).error||m}catch(_){} throw new Error(m)}
+      pintarRespuesta(caja,r.data); $('asis-preg').value=''; $('asis-cont').textContent='0 / 600';
+    }catch(e){var p=caja.querySelector('.asis-esperando'); if(p){p.className='asis-err';p.textContent=(e&&e.message)||'El asistente no respondió.'}}
+    $('asis-enviar').disabled=false;
+  });
 
   var irBase=window.irSeccion;
   window.irSeccion=function(id,arriba){irBase(id,arriba); if(id==='observatorio') cargarVigia()};
