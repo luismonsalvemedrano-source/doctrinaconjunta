@@ -192,6 +192,8 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
 .bloqueo-admin b{font-family:var(--display);font-size:20px;display:block;margin-bottom:6px}
 .bloqueo-admin p{margin:0 0 12px;color:var(--muted)}
 .cuenta{max-width:620px}
+.obs-marco{border:1px solid var(--vg-line);border-radius:10px;overflow:hidden;background:var(--vg-bg)}
+.obs-marco iframe{display:block;width:100%;height:max(640px,82vh);border:0}
 .pestanas{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
 .pestanas button{font:600 16px var(--display);color:var(--muted);background:none;border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer}
 .pestanas button[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);background:rgba(91,192,255,.08)}
@@ -369,7 +371,7 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     setTimeout(dimensionar,380);
   }
   window.irSeccion=abrir;
-  window.addEventListener('hashchange',function(){abrir(location.hash.slice(1),true)});
+  window.addEventListener('hashchange',function(){window.irSeccion(location.hash.slice(1),true)});
   function cerrarMenu(){menu.hidden=true;bMenu.setAttribute('aria-expanded','false');bMenu.focus()}
   bMenu.addEventListener('click',function(){menu.hidden=false;bMenu.setAttribute('aria-expanded','true');menu.querySelector('a').focus()});
   document.getElementById('b-cerrar').addEventListener('click',cerrarMenu);
@@ -380,7 +382,7 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     var id=a.getAttribute('href').slice(1); var s=document.getElementById(id);
     if(!s||!s.matches('main section')) return;
     ev.preventDefault(); if(!menu.hidden){menu.hidden=true;bMenu.setAttribute('aria-expanded','false')}
-    abrir(id,true);
+    window.irSeccion(id,true);
     try{history.replaceState(null,'','#'+id)}catch(_){}
   });
 
@@ -716,11 +718,24 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
       var res=await fetch('contenido-protegido.json',{cache:'no-store'});
       if(!res.ok) throw new Error('Este botón funciona desde la copia local del portal (localhost:3000), donde está el contenido generado. En el sitio publicado el contenido no se sube como archivo.');
       var d=await res.json();
-      for(var k of ['inicio','secciones']){var r=await sb.rpc('cargar_contenido',{p_id:k,p_html:d[k]}); if(r.error) throw r.error}
+      for(var k of ['inicio','secciones','vigia']){var r=await sb.rpc('cargar_contenido',{p_id:k,p_html:d[k]}); if(r.error) throw r.error}
+      vigiaCargado=false;
       cargado=false; await cargarContenido(); msj('m-admin','Contenido cargado.','ok');
     }catch(e){msj('m-admin',traducir(e),'error')}
     b.disabled=false;
   });
+
+  /* VIGÍA: se descarga de la base solo al abrir su sección, y corre aislado en un marco */
+  var vigiaCargado=false;
+  async function cargarVigia(){
+    if(vigiaCargado||!conAcceso(perfil)) return; vigiaCargado=true;
+    var r=await sb.from('contenido_portal').select('html,actualizado_en').eq('id','vigia').maybeSingle();
+    if(r.error||!r.data){vigiaCargado=false;$('obs-estado').textContent='El observatorio no está disponible en este momento.';return}
+    $('obs-frame').srcdoc=r.data.html;
+    $('obs-estado').textContent='Versión cargada el '+r.data.actualizado_en.slice(0,16).replace('T',' ')+' UTC. Fuente abierta; no es reporte de inteligencia.';
+  }
+  var irBase=window.irSeccion;
+  window.irSeccion=function(id,arriba){irBase(id,arriba); if(id==='observatorio') cargarVigia()};
 
   sb.auth.onAuthStateChange(function(ev,s){
     if(ev==='PASSWORD_RECOVERY'){recuperando=true;vista('v-nueva');if(window.irSeccion) window.irSeccion('ingreso',true);return}
