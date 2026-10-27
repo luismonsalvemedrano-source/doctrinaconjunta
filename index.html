@@ -32,7 +32,7 @@ a{color:inherit}
 .portada{position:relative;height:min(86vh,760px);min-height:540px;overflow:hidden;isolation:isolate;transition:height .35s ease}
 body:not([data-sec="inicio"]) .portada{height:300px;min-height:300px}
 #escena{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
-.tope{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+.tope{position:absolute;inset:0 0 auto;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
   padding-top:calc(18px + env(safe-area-inset-top,0px));padding-left:max(20px,env(safe-area-inset-left,0px));
   padding-right:max(20px,env(safe-area-inset-right,0px))}
 .esdeg{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
@@ -49,7 +49,7 @@ body:not([data-sec="inicio"]) .portada{height:300px;min-height:300px}
 .bt:hover{background:rgba(48,70,140,.9);border-color:var(--accent)}
 .bt svg{width:18px;height:18px;flex:none}
 @media (max-width:620px){.bt{min-width:0;padding:9px 12px;font-size:15px}.bt .lb{display:none}}
-.titular{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+.titular{position:absolute;inset:0;z-index:1;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;
   text-align:center;padding:110px 16px 40px;text-shadow:0 3px 24px rgba(0,0,0,.55)}
 .titular .bv{font-family:var(--display);font-weight:300;font-size:clamp(20px,2.6vw,34px);letter-spacing:.02em}
 .titular h1{font-weight:400;text-transform:uppercase;font-size:clamp(42px,8.4vw,112px);line-height:.94;letter-spacing:.005em;margin:6px 0 10px}
