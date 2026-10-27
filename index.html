@@ -274,7 +274,7 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     </div>
 
     <form class="form" id="v-ingresar" autocomplete="on">
-      <label class="ancho" for="i-correo">Correo<input id="i-correo" type="email" autocomplete="username" required></label>
+      <label class="ancho" for="i-correo">Correo personal registrado<input id="i-correo" type="email" autocomplete="username" required></label>
       <label class="ancho" for="i-clave">Contraseña<input id="i-clave" type="password" autocomplete="current-password" required></label>
       <p class="msj" id="m-ingresar" hidden></p>
       <div class="acciones"><button class="btn-p" type="submit">Ingresar</button>
@@ -290,17 +290,18 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
         <option value="ESDEG">ESDEG</option><option value="Otra">Otra</option></select></label>
       <label for="r-unidad">Unidad o dependencia<input id="r-unidad" required></label>
       <label class="ancho" for="r-cargo">Cargo<input id="r-cargo"></label>
-      <label class="ancho" for="r-correo">Correo institucional<input id="r-correo" type="email" autocomplete="email" required></label>
+      <label class="ancho" for="r-inst">Correo institucional<input id="r-inst" type="email" required placeholder="nombre@esdeg.edu.co"></label>
+      <label class="ancho" for="r-correo">Correo personal · será su usuario y ahí le llegan los mensajes del portal<input id="r-correo" type="email" autocomplete="email" required></label>
       <label for="r-clave">Contraseña<input id="r-clave" type="password" autocomplete="new-password" minlength="10" required></label>
       <label for="r-clave2">Repita la contraseña<input id="r-clave2" type="password" autocomplete="new-password" minlength="10" required></label>
       <label class="ancho" for="r-just">Para qué necesita el acceso<textarea id="r-just" required></textarea></label>
       <p class="msj" id="m-registro" hidden></p>
       <div class="acciones"><button class="btn-p" type="submit">Enviar solicitud</button>
-        <span class="fte">Mínimo 10 caracteres. Le llegará un correo para confirmar la dirección; después, un administrador aprueba la cuenta.</span></div>
+        <span class="fte">Contraseña de mínimo 10 caracteres. Le llegará un correo a su dirección personal para confirmarla; después, un administrador verifica su correo institucional y aprueba la cuenta.</span></div>
     </form>
 
     <form class="form" id="v-olvido" hidden>
-      <label class="ancho" for="o-correo">Correo de la cuenta<input id="o-correo" type="email" autocomplete="email" required></label>
+      <label class="ancho" for="o-correo">Correo personal registrado<input id="o-correo" type="email" autocomplete="email" required></label>
       <p class="msj" id="m-olvido" hidden></p>
       <div class="acciones"><button class="btn-p" type="submit">Enviarme el enlace</button>
         <span class="fte">El enlace llega al correo registrado y sirve una sola vez.</span></div>
@@ -317,7 +318,8 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     <div id="v-cuenta" hidden>
       <dl class="ficha-cuenta">
         <dt>Usuario</dt><dd id="c-nombre"></dd>
-        <dt>Correo</dt><dd id="c-correo"></dd>
+        <dt>Correo personal</dt><dd id="c-correo"></dd>
+        <dt>Correo institucional</dt><dd id="c-inst"></dd>
         <dt>Fuerza y unidad</dt><dd id="c-unidad"></dd>
         <dt>Estado</dt><dd id="c-estado"></dd>
       </dl>
@@ -556,8 +558,21 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     if(/rate limit|too many/i.test(m)) return 'Se alcanzó el límite de envíos de correo por ahora. Intente de nuevo en unos minutos.';
     if(/not authorized/i.test(m)) return 'El servicio de correo de pruebas solo envía a direcciones autorizadas. Use el correo del administrador o configure el remitente definitivo.';
     if(/Password should be at least/i.test(m)) return 'La contraseña es muy corta.';
+    if(/Database error saving new user/i.test(m)) return 'No se pudo crear la cuenta. Revise que el correo institucional sea válido, no sea de un servicio público, pertenezca a un dominio admitido y no esté ya registrado.';
     if(/should be different/i.test(m)) return 'La nueva contraseña debe ser distinta de la anterior.';
     return 'No se pudo completar: '+m;
+  }
+  /* correos públicos que no valen como institucionales (la base aplica la misma regla) */
+  var PUBLICOS=['gmail.com','googlemail.com','hotmail.com','hotmail.es','outlook.com','outlook.es','live.com',
+    'yahoo.com','yahoo.es','icloud.com','me.com','protonmail.com','proton.me','aol.com'];
+  /* ¿el dominio institucional existe y recibe correo? Consulta sus registros MX. null = no se pudo comprobar */
+  async function dominioRecibeCorreo(dom){
+    if(!dom) return false;
+    try{
+      var r=await fetch('https://dns.google/resolve?name='+encodeURIComponent(dom)+'&type=MX',{cache:'no-store'});
+      var j=await r.json();
+      return j.Status===0&&Array.isArray(j.Answer)&&j.Answer.some(function(a){return a.type===15});
+    }catch(_){return null}
   }
   /* la consulta de supabase-js solo se envía cuando se espera su resultado: siempre con await */
   async function evento(accion){
@@ -583,6 +598,7 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     vista('v-cuenta');
     $('c-nombre').textContent=(perfil.grado+' '+perfil.nombre).trim();
     $('c-correo').textContent=perfil.correo;
+    $('c-inst').textContent=perfil.correo_institucional||'No consta';
     $('c-unidad').textContent=[perfil.fuerza,perfil.unidad].filter(Boolean).join(' · ');
     var est=ROLES[perfil.rol]||perfil.rol;
     if(conAcceso(perfil)&&perfil.vence_en) est+=' · vigente hasta '+perfil.vence_en;
@@ -617,14 +633,19 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
   $('v-registro').addEventListener('submit',async function(ev){
     ev.preventDefault(); msj('m-registro','');
     if($('r-clave').value!==$('r-clave2').value){msj('m-registro','Las contraseñas no coinciden.','error');return}
+    var inst=$('r-inst').value.trim().toLowerCase(), pers=$('r-correo').value.trim().toLowerCase(), dom=inst.split('@')[1]||'';
+    if(PUBLICOS.indexOf(dom)>=0){msj('m-registro','El correo institucional no puede ser de un servicio público como '+dom+'.','error');return}
+    if(inst===pers){msj('m-registro','Use un correo personal distinto del institucional: los mensajes del portal no siempre llegan a los buzones institucionales.','error');return}
     ocupado(this,true);
-    var r=await sb.auth.signUp({email:$('r-correo').value.trim(),password:$('r-clave').value,
-      options:{emailRedirectTo:location.origin,data:{grado:$('r-grado').value,nombre:$('r-nombre').value,fuerza:$('r-fuerza').value,
+    var recibe=await dominioRecibeCorreo(dom);
+    if(recibe===false){ocupado(this,false);msj('m-registro','El dominio '+dom+' no recibe correo. Revise su correo institucional.','error');return}
+    var r=await sb.auth.signUp({email:pers,password:$('r-clave').value,
+      options:{emailRedirectTo:location.origin,data:{correo_institucional:inst,grado:$('r-grado').value,nombre:$('r-nombre').value,fuerza:$('r-fuerza').value,
         unidad:$('r-unidad').value,cargo:$('r-cargo').value,justificacion:$('r-just').value}}});
     ocupado(this,false);
     if(r.error){msj('m-registro',traducir(r.error),'error');return}
     this.reset();
-    msj('m-registro','Solicitud enviada. Revise su correo y confirme la dirección; después un administrador aprobará la cuenta.','ok');
+    msj('m-registro','Solicitud enviada. Revise su correo personal y confirme la dirección; después un administrador verificará su correo institucional y aprobará la cuenta.','ok');
   });
 
   $('v-olvido').addEventListener('submit',async function(ev){
@@ -658,15 +679,16 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
     var s=await sb.from('solicitudes_acceso').select('id,usuario,justificacion,creada_en').eq('estado','pendiente').order('creada_en');
     if(s.error){cont.innerHTML='';msj('m-admin',traducir(s.error),'error');return}
     if(!s.data.length){cont.innerHTML='<p class="vacio">No hay solicitudes pendientes.</p>';return}
-    var p=await sb.from('perfiles').select('id,correo,grado,nombre,fuerza,unidad,cargo').in('id',s.data.map(function(x){return x.usuario}));
+    var p=await sb.from('perfiles').select('id,correo,correo_institucional,grado,nombre,fuerza,unidad,cargo').in('id',s.data.map(function(x){return x.usuario}));
     var porId={}; (p.data||[]).forEach(function(x){porId[x.id]=x});
     cont.innerHTML='';
     s.data.forEach(function(x){
       var q=porId[x.usuario]||{}, d=document.createElement('div'); d.className='sol';
       var a=document.createElement('div'), h=document.createElement('h3'); h.textContent=((q.grado||'')+' '+(q.nombre||'')).trim();
-      var p1=document.createElement('p'); p1.textContent=[q.correo,q.fuerza,q.unidad,q.cargo].filter(Boolean).join(' · ');
+      var p1=document.createElement('p'); p1.textContent=[q.fuerza,q.unidad,q.cargo].filter(Boolean).join(' · ');
+      var pc=document.createElement('p'); pc.textContent='Institucional: '+(q.correo_institucional||'No consta')+' · Personal: '+(q.correo||'');
       var p2=document.createElement('p'); p2.textContent='Solicitada el '+x.creada_en.slice(0,10)+'.';
-      a.append(h,p1,p2);
+      a.append(h,p1,pc,p2);
       var b=document.createElement('div'), t=document.createElement('p'); t.textContent=x.justificacion; b.append(t);
       var c=document.createElement('div'); c.className='dec';
       var sel=document.createElement('select'); sel.setAttribute('aria-label','Rol');
