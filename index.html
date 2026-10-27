@@ -578,7 +578,7 @@ body.leyendo{overflow:hidden}
       var s=titilan[i], a=.45+.45*Math.sin(s.f+ms/1000*s.v);
       cx.fillStyle='rgba(225,236,255,'+a.toFixed(3)+')'; cx.fillRect(s.x*W,s.y*H,s.s+.4,s.s+.4);
     }
-    if(!anclasVivas.length) return;
+    if(!anclasVivas.length){ if(H<420) desfile(ms); return; }
     var k0=null;
     anclasVivas.forEach(function(a,i){
       if(a.e.n==='soldado') return; var k=curva(a); k0=k;
@@ -592,6 +592,27 @@ body.leyendo{overflow:hidden}
       cx.beginPath(); cx.arc(k0.nx,k0.ny,9+3*pul,0,6.28); cx.stroke();
       cx.fillStyle='rgba(200,235,255,.95)'; cx.beginPath(); cx.arc(k0.nx,k0.ny,3.2,0,6.28); cx.fill();
     }
+  }
+  /* portada reducida de las demás secciones: los planos de la portada desfilan de a uno, despacio,
+     de izquierda a derecha; cuando uno sale por la derecha entra el siguiente */
+  /* espejo: el plano original mira a la izquierda; se voltea para que avance de frente hacia la derecha */
+  var DESFILE=[{n:'aeronave',y:.30,w:170,espejo:true},{n:'fragata',y:'hz',w:190,refl:true},{n:'satelite',y:.26,w:95},
+    {n:'blindado',y:'hz',w:160,refl:true,espejo:true},{n:'paracaidista',y:.20,w:70,baja:true},{n:'soldado',y:'hz',w:64}];
+  var dsf={i:0,x:null,previo:0};
+  function desfile(ms){
+    var dt=dsf.previo?Math.min(ms-dsf.previo,100):0; dsf.previo=ms;
+    var e=DESFILE[dsf.i], im=img[e.n]; if(!im||!im.complete||!im.naturalWidth) return;
+    var w=e.w*(W<700?.62:1), h=w*im.naturalHeight/im.naturalWidth, hz=horizonte();
+    if(dsf.x===null) dsf.x=-w;
+    dsf.x+=dt/1000*Math.max(28,W/32);   /* cruza la franja en unos 30 s */
+    if(dsf.x>W){dsf.x=null; dsf.i=(dsf.i+1)%DESFILE.length; return}
+    var y=e.y==='hz'?hz-h*.93:(e.y+(W<700?.09:0))*H-h/2;   /* en celular, por debajo del nombre de la Escuela */
+    if(e.baja) y+=(dsf.x+w)/(W+w)*H*.12;   /* el paracaidista desciende mientras avanza */
+    cx.save(); cx.globalCompositeOperation='lighter'; cx.globalAlpha=.92;
+    if(e.espejo){cx.translate(2*dsf.x+w,0); cx.scale(-1,1)}
+    cx.drawImage(im,dsf.x,y,w,h);
+    if(e.refl){cx.globalAlpha=.14; cx.translate(0,2*hz); cx.scale(1,-1); cx.drawImage(im,dsf.x,y,w,h)}
+    cx.restore();
   }
   function dimensionar(){
     var b=cv.getBoundingClientRect(); dpr=Math.min(window.devicePixelRatio||1,1.5);
