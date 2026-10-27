@@ -1,2 +1,14 @@
+# Lectores de vista previa de enlaces: pueden leer la portada y la miniatura.
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: WhatsApp
+User-agent: Twitterbot
+User-agent: LinkedInBot
+User-agent: TelegramBot
+User-agent: Slackbot-LinkExpanding
+User-agent: Discordbot
+Allow: /
+
+# Piloto sin autorización institucional (D1): fuera de los buscadores.
 User-agent: *
 Disallow: /
