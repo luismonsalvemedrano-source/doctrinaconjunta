@@ -336,11 +336,11 @@ body.leyendo{overflow:hidden}
 
 <div class="menu" id="menu" hidden><div class="panel" role="dialog" aria-label="Menú del portal">
   <button class="bt cerrar" id="b-cerrar" type="button">Cerrar</button>
-  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">VIGÍA</a></li><li><a href="#asistente">Asistente</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
+  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">VIGÍA</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
   <p class="fte">Centro de Doctrina Conjunta (CEDCO) · Escuela Superior de Guerra</p>
 </div></div>
 
-<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">VIGÍA</a></li><li><a href="#asistente" role="tab" data-sec="asistente">Asistente</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
+<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">VIGÍA</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
 
 <main class="env">
 
@@ -443,7 +443,7 @@ body.leyendo{overflow:hidden}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 27 oct. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza cada día a las 5:00 a. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 28 oct. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza cada día a las 5:00 a. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -753,6 +753,11 @@ body.leyendo{overflow:hidden}
   async function cargarContenido(){
     if(cargado) return; cargado=true;
     var r=await sb.from('contenido_portal').select('id,html,actualizado_en').in('id',['inicio','secciones']);
+    /* copia local: si el generador dejó una vista previa (PORTAL_ASISTENTE=vista-previa), se pinta esa en lugar de la de la base */
+    if(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)){try{
+      var vp=await fetch('contenido-protegido.json',{cache:'no-store'}); var j=vp.ok?await vp.json():null;
+      if(j&&j.vista_previa){var t=new Date().toISOString(); r={data:[{id:'inicio',html:j.inicio,actualizado_en:t},{id:'secciones',html:j.secciones,actualizado_en:t}]}}
+    }catch(_){}}
     if(r.error||!r.data||!r.data.length){cargado=false;
       msj('m-cuenta',perfil&&perfil.rol==='administrador'?'Aún no hay contenido cargado. Cárguelo desde Administración.':'El contenido del portal no está disponible en este momento. Avise al administrador.','error');return}
     var m={}; r.data.forEach(function(x){m[x.id]=x.html; if($('c-version')) $('c-version').textContent='Versión cargada el '+x.actualizado_en.slice(0,16).replace('T',' ')+' UTC.'});
