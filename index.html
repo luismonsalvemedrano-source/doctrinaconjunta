@@ -194,6 +194,7 @@ td.cod{color:var(--accent-2);white-space:nowrap}
 .vg-cifras div{background:var(--vg-panel);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
 .vg-cifras b{font-family:var(--display);font-weight:600;font-size:32px;line-height:1;color:#FFFFFF;font-variant-numeric:tabular-nums}
 .vg-cifras span{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--vg-muted)}
+.vg-cifras .vg-des{font-size:11.5px;line-height:1.35;color:var(--vg-muted)}
 .vg-rot{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--vg-cian)}
 .vg-ev{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
 .vg-ev li{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;padding:9px 0;border-top:1px solid var(--vg-line);font-size:14px}
@@ -261,6 +262,11 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
 .sol .dec{display:flex;flex-direction:column;gap:8px;min-width:220px}
 .sol select,.sol input{font:14px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
 .sol .fila{display:flex;gap:8px;flex-wrap:wrap}
+.filtros-us{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 12px}
+.filtros-us input,.filtros-us select{font:14px var(--body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+.filtros-us input{flex:1;min-width:220px}
+.tabla-us td small{display:block;color:var(--muted);font-size:12.5px}
+.tabla-us .vence-ya{color:#F2A0A0}
 /* asistente de doctrina */
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .asis{max-width:820px}
@@ -427,11 +433,16 @@ body.leyendo{overflow:hidden}
 </section>
 
 <section id="admin" hidden>
-  <div class="sec-t"><span class="ojo">Administración</span><h2>Solicitudes de cuenta</h2>
+  <div class="sec-t"><span class="ojo">Administración</span><h2>Usuarios y solicitudes de cuenta</h2>
     <p>Revise cada solicitud antes de aprobarla. La cuenta aprobada vence en un año y se registra en la bitácora.</p></div>
   <div class="bloqueo-admin"><b>Solo administradores</b><p>Esta sección es para los administradores del portal.</p></div>
   <p class="msj" id="m-admin" hidden></p>
   <div id="lista-solicitudes"><p class="vacio">Cargando solicitudes…</p></div>
+  <h3 class="bloque-t" style="margin-top:36px">Usuarios vinculados <span id="n-usuarios" class="fte" style="font-size:14px"></span></h3>
+  <div class="filtros-us"><input id="f-usuario" type="search" placeholder="Buscar por nombre, correo, fuerza o unidad" aria-label="Buscar usuario">
+    <select id="f-rol" aria-label="Rol"><option value="">Todos los roles</option><option value="administrador">Administrador</option><option value="editor">Editor</option><option value="lector">Lector</option><option value="pendiente">Pendiente</option></select></div>
+  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Fuerza · unidad · cargo</th><th>Correo</th><th>Rol</th><th>Aprobada</th><th>Vence</th><th>Último ingreso</th></tr></thead>
+    <tbody id="lista-usuarios"><tr><td colspan="7" class="vacio">Cargando usuarios…</td></tr></tbody></table></div>
   <div class="caja" style="margin-top:28px;max-width:640px"><h3>Contenido del portal</h3>
     <p class="fte" id="c-version" style="margin:0 0 12px">Sin cargar.</p>
     <button class="btn-s" type="button" id="b-cargar">Cargar contenido generado</button>
@@ -443,7 +454,7 @@ body.leyendo{overflow:hidden}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 28 oct. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza cada día a las 5:00 a. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 1 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -745,7 +756,7 @@ body.leyendo{overflow:hidden}
     $('c-estado').textContent=est;
     msj('m-cuenta',perfil.rol==='pendiente'?'Su solicitud está pendiente. Un administrador del CEDCO la revisará; cuando la apruebe tendrá acceso a todo el portal.':'');
     if(conAcceso(perfil)) cargarContenido();
-    if(perfil.rol==='administrador') cargarSolicitudes();
+    if(perfil.rol==='administrador'){cargarSolicitudes(); cargarUsuarios();}
   }
 
   /* el contenido llega de la base de datos solo para cuentas aprobadas (regla es_lector) */
@@ -848,11 +859,42 @@ body.leyendo{overflow:hidden}
       fila.append(ap,re); c.append(sel,mot,fila); d.append(a,b,c); cont.append(d);
     });
   }
+  /* usuarios vinculados: todas las cuentas registradas, con rol, vigencia y último ingreso */
+  var USUARIOS=[];
+  function fechaCorta(t){return t?String(t).slice(0,10):'—'}
+  function pintarUsuarios(){
+    var tb=$('lista-usuarios'); if(!tb) return;
+    var q=($('f-usuario').value||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''), rol=$('f-rol').value, hoy=new Date().toISOString().slice(0,10);
+    var vis=USUARIOS.filter(function(u){
+      var t=[u.grado,u.nombre,u.correo,u.correo_institucional,u.fuerza,u.unidad,u.cargo].join(' ').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      return (!rol||u.rol===rol)&&(!q||t.indexOf(q)>=0)});
+    tb.textContent='';
+    if(!vis.length){var tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=7;td.className='vacio';td.textContent='Ningún usuario coincide.';tr.append(td);tb.append(tr)}
+    vis.forEach(function(u){
+      var tr=document.createElement('tr');
+      function celda(a,b,cls){var td=document.createElement('td'); td.textContent=a||'—'; if(b){var sm=document.createElement('small'); sm.textContent=b; td.append(sm)} if(cls) td.className=cls; tr.append(td)}
+      celda(((u.grado||'')+' '+(u.nombre||'')).trim(), null);
+      celda([u.fuerza,u.unidad].filter(Boolean).join(' · '), u.cargo||'');
+      celda(u.correo_institucional||u.correo, u.correo_institucional&&u.correo&&u.correo!==u.correo_institucional?u.correo:(u.correo_confirmado?'':'Correo sin confirmar'));
+      celda(ROLES[u.rol]||u.rol);
+      celda(fechaCorta(u.aprobado_en));
+      celda(fechaCorta(u.vence_en), null, u.vence_en&&u.vence_en<hoy?'vence-ya':'');
+      celda(u.ultimo_ingreso?String(u.ultimo_ingreso).slice(0,16).replace('T',' ')+' UTC':'Nunca');
+      tb.append(tr);
+    });
+    $('n-usuarios').textContent='· '+USUARIOS.length+' en total';
+  }
+  async function cargarUsuarios(){
+    var r=await sb.rpc('usuarios_vinculados');
+    if(r.error){$('lista-usuarios').innerHTML='<tr><td colspan="7" class="vacio">No se pudo cargar la lista de usuarios.</td></tr>';return}
+    USUARIOS=r.data||[]; pintarUsuarios();
+  }
+  if($('f-usuario')){$('f-usuario').addEventListener('input',pintarUsuarios); $('f-rol').addEventListener('change',pintarUsuarios)}
   async function resolver(uid,aprobar,rol,motivo,fila){
     msj('m-admin','');
     var r=await sb.rpc('resolver_solicitud',{p_usuario:uid,p_aprobar:aprobar,p_rol:rol,p_motivo:motivo});
     if(r.error){msj('m-admin',traducir(r.error),'error');return}
-    fila.remove(); msj('m-admin',aprobar?'Cuenta aprobada.':'Solicitud rechazada.','ok');
+    fila.remove(); msj('m-admin',aprobar?'Cuenta aprobada.':'Solicitud rechazada.','ok'); cargarUsuarios();
     if(!$('lista-solicitudes').children.length) $('lista-solicitudes').innerHTML='<p class="vacio">No hay solicitudes pendientes.</p>';
   }
 
