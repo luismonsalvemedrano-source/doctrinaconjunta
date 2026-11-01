@@ -913,12 +913,16 @@ body.leyendo{overflow:hidden}
   });
 
   /* VIGÍA: se descarga de la base solo al abrir su sección, y corre aislado en un marco */
-  var vigiaCargado=false;
+  var vigiaCargado=false, obsPestana=null;
+  /* botones que abren una pestaña concreta del observatorio (p. ej. el reporte por municipios) */
+  document.addEventListener('click',function(ev){var a=ev.target.closest('[data-obs]'); if(!a) return; obsPestana=a.dataset.obs;
+    if(vigiaCargado){try{$('obs-frame').contentWindow.postMessage({vigia:obsPestana},'*')}catch(e){}}});
   async function cargarVigia(){
     if(vigiaCargado||!conAcceso(perfil)) return; vigiaCargado=true;
     var r=await sb.from('contenido_portal').select('html,actualizado_en').eq('id','vigia').maybeSingle();
     if(r.error||!r.data){vigiaCargado=false;$('obs-estado').textContent='El observatorio no está disponible en este momento.';return}
     $('obs-frame').srcdoc=r.data.html;
+    $('obs-frame').addEventListener('load',function(){if(obsPestana){try{$('obs-frame').contentWindow.postMessage({vigia:obsPestana},'*')}catch(e){}}});
     $('obs-estado').textContent='Versión cargada el '+r.data.actualizado_en.slice(0,16).replace('T',' ')+' UTC. Fuente abierta; no es reporte de inteligencia.';
   }
   /* ---------- manuales en línea: portadas y PDF salen del almacén privado con enlaces firmados de 1 hora ---------- */
