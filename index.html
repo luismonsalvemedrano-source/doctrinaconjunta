@@ -856,10 +856,15 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 </script>
 
 <script>
-(function(){var b=document.getElementById('sv-ingrese'); if(!b) return;
-  b.addEventListener('click',function(ev){var dentro=!!document.getElementById('obs-frame'); ev.preventDefault();
-    var id=dentro?'observatorio':'ingreso'; if(window.irSeccion) window.irSeccion(id,true); else location.hash=id;
-    if(!dentro){var s=document.getElementById('ingreso'); if(s&&s.scrollIntoView) setTimeout(function(){s.scrollIntoView({behavior:'smooth'})},60)}});
+(function(){var b=document.getElementById('sv-ingrese'); if(!b) return; var aprobado=false;
+  /* solo una cuenta aprobada y vigente entra al observatorio completo; sin ella, el botón lleva al ingreso */
+  document.addEventListener('portal-perfil',function(e){aprobado=!!e.detail;
+    var n=document.querySelector('.sv-nota'); if(n) n.textContent=aprobado?'Su cuenta tiene acceso: abre el observatorio completo.':'Acceso para cuentas aprobadas del portal.'});
+  function ir(id){if(window.irSeccion) window.irSeccion(id,true); else location.hash=id}
+  b.addEventListener('click',function(ev){ev.preventDefault();
+    if(!aprobado){ir('ingreso'); var s=document.getElementById('ingreso'); if(s&&s.scrollIntoView) setTimeout(function(){s.scrollIntoView({behavior:'smooth'})},60); return}
+    var n=0; (function abrir(){ if(document.getElementById('observatorio')){ir('observatorio'); if(location.hash!=='#observatorio') history.replaceState(null,'','#observatorio'); return}
+      if(++n<40) setTimeout(abrir,100); else ir('ingreso')})()});
 })();
 </script>
 <script>
