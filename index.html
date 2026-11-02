@@ -114,7 +114,7 @@ section{padding-block:36px 60px}
 
 /* novedades */
 .nov{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding:18px 0;border-top:1px solid var(--line)}
-@media (max-width:620px){.nov{grid-template-columns:1fr;gap:8px}}
+@media (max-width:620px){.nov{grid-template-columns:minmax(0,1fr);gap:8px}}
 .nov-m{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .nov-f{font-family:var(--mono);font-size:13px;color:var(--muted)}
 .nov h3{font-size:22px;font-weight:600;margin-bottom:6px}
@@ -126,7 +126,7 @@ section{padding-block:36px 60px}
 .c-alta,.c-actualizacion{color:var(--accent-2);border-color:rgba(245,196,81,.4)}
 .c-boletin{color:var(--accent);border-color:rgba(91,192,255,.4)}
 .c-evento{color:#9FE3B8;border-color:rgba(91,191,133,.45)}
-.nov-fotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 0;max-width:1100px}
+.nov-fotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px;margin:12px 0 0;max-width:1100px}
 .nov-img{margin:0}
 .nov-portada{float:left;width:96px;margin:2px 16px 8px 0}
 .nov-portada figcaption{display:none}
@@ -174,6 +174,12 @@ section{padding-block:36px 60px}
 .mn dl div{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;font-size:13px}
 .mn dt{color:var(--muted)} .mn dd{margin:0}
 .mn-n{margin:0;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.mn-res summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--oro,#c9a85a);list-style:none;padding:4px 0}
+.mn-res summary::before{content:"▸ ";}.mn-res[open] summary::before{content:"▾ ";}
+.mn-res-c{font-size:13px;line-height:1.5;border-left:2px solid var(--line);padding:2px 0 4px 10px;margin-bottom:6px}
+.mn-res-c h4{margin:8px 0 2px;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted)}
+.mn-res-c p{margin:0}.mn-res-c ul{margin:2px 0 0;padding-left:18px}
+.mn-res-c blockquote{margin:8px 0 0;font-style:italic}.mn-res-c cite{display:block;font-style:normal;font-size:12px;color:var(--muted)}
 .mn-acc{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:4px}
 .mn-leer{font:600 16px var(--display);color:#04101F;background:var(--accent);border:0;border-radius:6px;padding:9px 12px;cursor:pointer}
 .mn-leer:hover{background:#8AD3FF}
@@ -351,6 +357,12 @@ body.leyendo{overflow:hidden}
 #res-codigo ol{max-height:320px;overflow:auto;margin:8px 0 0;padding-left:20px;font:500 13px var(--mono)}
 
 
+.bt.acc-rap{background:#9a7b2f;border-color:#9a7b2f;color:#fff;font-weight:600}
+.bt.acc-rap:hover{background:#b8933a}
+.acc-aviso{display:block;margin:0 0 18px;padding:14px 18px;border:1px solid #9a7b2f;border-radius:8px;background:rgba(154,123,47,.12);color:#fff;text-decoration:none}
+.acc-aviso b{display:block;color:#e2c47a;font-size:16px}.acc-aviso span{color:#cfd8ea;font-size:14px}
+.acc-aviso:hover{background:rgba(154,123,47,.22)}
+
 /* ===== VISUAL-v1 ===== */
 main.env,.nav .env{zoom:var(--zoom,1)}
 body.hc{--muted:#C9D6EE;--line:#3A5A98;--ink:#FFFFFF}
@@ -451,6 +463,7 @@ details.vg-calc>summary{cursor:pointer;color:var(--vg-cian);font-size:14px}
       <span class="t"><b>Escuela Superior de Guerra</b><i>“General Rafael Reyes Prieto”</i><span>Colombia</span></span></a>
     <div class="botones">
       <button class="bt" id="b-menu" type="button" aria-expanded="false" aria-controls="menu"><span>Menú</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <a class="bt acc-rap" href="acceso.html"><span>Acceso rápido</span></a>
       <a class="bt" id="b-ingreso" href="#ingreso"><span id="b-ingreso-txt">Ingreso</span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></a>
     </div>
   </div>
@@ -487,7 +500,7 @@ details.vg-calc>summary{cursor:pointer;color:var(--vg-cian);font-size:14px}
 
 <div id="zona-protegida"></div>
 
-<section id="ingreso" hidden>
+<section id="ingreso" hidden><a class="acc-aviso" href="acceso.html"><b>Acceso rápido, sin registro</b><span>Novedades doctrinales y manuales de uso público para leer o descargar →</span></a>
   <div class="sec-t"><span class="ojo">Ingreso</span><h2>Cuenta de usuario</h2>
     <p>Todo el contenido del portal requiere una cuenta aprobada por un administrador del CEDCO. Si aún no tiene cuenta, solicítela con su correo institucional.</p></div>
   <div class="cuenta">
