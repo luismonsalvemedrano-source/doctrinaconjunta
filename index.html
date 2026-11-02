@@ -128,8 +128,10 @@ section{padding-block:36px 60px}
 .c-evento{color:#9FE3B8;border-color:rgba(91,191,133,.45)}
 .nov-fotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 0;max-width:1100px}
 .nov-img{margin:0}
-.nov-portada{max-width:220px}
-.nov-portada img{box-shadow:0 14px 28px rgba(0,0,0,.55);border-radius:4px 8px 8px 4px}
+.nov-portada{float:left;width:96px;margin:2px 16px 8px 0}
+.nov-portada figcaption{display:none}
+.nov-c::after{content:"";display:block;clear:both}
+.nov-portada img{box-shadow:0 8px 16px rgba(0,0,0,.5);border-radius:4px 8px 8px 4px}
 .nov-img img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
 .nov-img figcaption{margin-top:6px;font-size:13px;color:var(--muted)}
 .e-ok{color:var(--ok);background:var(--ok-bg);border-color:transparent}
