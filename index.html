@@ -1137,11 +1137,13 @@ body.leyendo{overflow:hidden}
   var irBase=window.irSeccion;
   window.irSeccion=function(id,arriba){irBase(id,arriba); if(id==='observatorio') cargarVigia()};
   /* el observatorio ocupa toda la pantalla mientras su sección está abierta */
-  (function(){var sec=document.getElementById('observatorio'); if(!sec) return;
-    function ajustar(){document.body.classList.toggle('obs-full',!sec.hidden)}
-    new MutationObserver(ajustar).observe(sec,{attributes:true,attributeFilter:['hidden']}); ajustar();
-    var v=document.getElementById('obs-volver'); if(v) v.addEventListener('click',function(){window.irSeccion('inicio',true)});
-    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!sec.hidden) window.irSeccion('inicio',true)});
+  (function(){ /* la sección llega de la base después de ingresar: se vigila todo el documento */
+    function abierto(){var sec=document.getElementById('observatorio'); return !!(sec&&!sec.hidden)}
+    function ajustar(){document.body.classList.toggle('obs-full',abierto())}
+    new MutationObserver(ajustar).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden']}); ajustar();
+    window.addEventListener('hashchange',function(){setTimeout(ajustar,50)});
+    document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('#obs-volver'); if(v){e.preventDefault(); window.irSeccion('inicio',true); setTimeout(ajustar,50)}});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&abierto()){window.irSeccion('inicio',true); setTimeout(ajustar,50)}});
   })();
 
   sb.auth.onAuthStateChange(function(ev,s){
