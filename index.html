@@ -125,6 +125,7 @@ section{padding-block:36px 60px}
 .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .c-alta,.c-actualizacion{color:var(--accent-2);border-color:rgba(245,196,81,.4)}
 .c-boletin{color:var(--accent);border-color:rgba(91,192,255,.4)}
+.c-evento{color:#9FE3B8;border-color:rgba(91,191,133,.45)}
 .e-ok{color:var(--ok);background:var(--ok-bg);border-color:transparent}
 .e-alerta{color:var(--alerta);background:var(--alerta-bg);border-color:transparent}
 .e-neutro{color:var(--neutro);background:var(--neutro-bg);border-color:transparent}
@@ -326,6 +327,21 @@ body.leyendo{overflow:hidden}
 .vs-pg canvas{position:relative;display:block;width:100%;height:100%}
 .vs-estado{color:var(--muted);text-align:center;margin:48px auto;max-width:520px}
 @media (max-width:620px){.vs-tit span{font-size:15px}#vs-pestana,#vs-zoom{display:none}.vs-ctl{width:100%;justify-content:space-between}.vs-hoja{padding:10px 6px 40px}}
+/* MARCA-AGUA-v1: código de usuario en mosaico sobre todas las páginas */
+.marca-agua{position:fixed;inset:0;pointer-events:none;z-index:2147483646;background-repeat:repeat;opacity:.075}
+@media print{.marca-agua{opacity:.22;-webkit-print-color-adjust:exact;print-color-adjust:exact;filter:invert(1)}}
+.aviso-mon{position:fixed;inset:0;z-index:2147483647;background:rgba(3,8,24,.94);display:grid;place-items:center;padding:16px;overflow:auto}
+.aviso-mon .caja-m{max-width:640px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:22px 24px}
+.aviso-mon h3{margin:0 0 10px;font-family:var(--display);font-size:22px}
+.aviso-mon p,.aviso-mon li{color:var(--ink);font-size:15px;line-height:1.55}
+.aviso-mon ul{margin:6px 0 14px;padding-left:20px}
+.aviso-mon .cod-m{display:inline-block;font:700 18px var(--mono);letter-spacing:.08em;padding:4px 10px;border:1px dashed var(--accent);border-radius:6px;margin:4px 0 12px}
+.aviso-mon .fila-m{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.tabla-act td.alerta{color:#F3A0A0;font-weight:600}
+#res-codigo{margin:10px 0 18px}
+#res-codigo .caja{margin:0}
+#res-codigo ol{max-height:320px;overflow:auto;margin:8px 0 0;padding-left:20px;font:500 13px var(--mono)}
+
 </style>
 
 <header class="portada">
@@ -450,6 +466,13 @@ body.leyendo{overflow:hidden}
     <select id="f-rol" aria-label="Rol"><option value="">Todos los roles</option><option value="administrador">Administrador</option><option value="editor">Editor</option><option value="lector">Lector</option><option value="pendiente">Pendiente</option></select></div>
   <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Fuerza · unidad · cargo</th><th>Correo</th><th>Rol</th><th>Aprobada</th><th>Vence</th><th>Último ingreso</th></tr></thead>
     <tbody id="lista-usuarios"><tr><td colspan="7" class="vacio">Cargando usuarios…</td></tr></tbody></table></div>
+  <h3 class="bloque-t" style="margin-top:36px">Actividad por usuario <span class="fte" style="font-size:14px">· últimos 30 días</span></h3>
+  <p class="fte" style="max-width:760px">Cada cuenta tiene un código aleatorio que aparece como marca de agua en todas las páginas, en las impresiones y al final de todo texto copiado. Pegue aquí un código visto en una captura, una foto o un texto reenviado para saber a quién corresponde y qué hizo en los últimos 90 días. Cada consulta queda en la bitácora.</p>
+  <div class="filtros-us"><input id="f-codigo" type="search" placeholder="Código, p. ej. K7Q4-MZP2" aria-label="Código de usuario" autocomplete="off">
+    <button class="btn-s" type="button" id="b-codigo">Buscar código</button></div>
+  <div id="res-codigo"></div>
+  <div class="tabla"><table class="tabla-us tabla-act"><thead><tr><th>Código</th><th>Usuario</th><th>Aviso aceptado</th><th>Último evento</th><th>Eventos</th><th>Secciones vistas</th><th>Copias 24 h</th><th>Descargas 24 h</th><th>Impresiones</th><th>Alerta</th></tr></thead>
+    <tbody id="lista-actividad"><tr><td colspan="10" class="vacio">Cargando actividad…</td></tr></tbody></table></div>
   <div class="caja" style="margin-top:28px;max-width:640px"><h3>Contenido del portal</h3>
     <p class="fte" id="c-version" style="margin:0 0 12px">Sin cargar.</p>
     <button class="btn-s" type="button" id="b-cargar">Cargar contenido generado</button>
@@ -929,7 +952,7 @@ body.leyendo{overflow:hidden}
     var r=await sb.from('contenido_portal').select('html,actualizado_en').eq('id','vigia').maybeSingle();
     if(r.error||!r.data){vigiaCargado=false;$('obs-estado').textContent='El observatorio no está disponible en este momento.';return}
     $('obs-frame').srcdoc=r.data.html;
-    $('obs-frame').addEventListener('load',function(){var w=$('obs-frame').contentWindow; try{w.postMessage({vigiaUsuario:perfil?((perfil.grado?perfil.grado+' ':'')+(perfil.nombre||perfil.correo||'')).trim():''},'*')}catch(e){} if(obsPestana){try{w.postMessage({vigia:obsPestana},'*')}catch(e){}}});
+    $('obs-frame').addEventListener('load',function(){var w=$('obs-frame').contentWindow; try{w.postMessage({vigiaUsuario:perfil?((perfil.grado?perfil.grado+' ':'')+(perfil.nombre||perfil.correo||'')).trim():'',vigiaCodigo:(perfil&&perfil.codigo)||''},'*')}catch(e){} if(obsPestana){try{w.postMessage({vigia:obsPestana},'*')}catch(e){}}});
     $('obs-estado').textContent='Versión cargada el '+r.data.actualizado_en.slice(0,16).replace('T',' ')+' UTC. Fuente abierta; no es reporte de inteligencia.';
   }
   /* ---------- manuales en línea: portadas y PDF salen del almacén privado con enlaces firmados de 1 hora ---------- */
@@ -1145,6 +1168,87 @@ body.leyendo{overflow:hidden}
     document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('#obs-volver'); if(v){e.preventDefault(); window.irSeccion('inicio',true); setTimeout(ajustar,50)}});
     document.addEventListener('keydown',function(e){if(e.key==='Escape'&&abierto()){window.irSeccion('inicio',true); setTimeout(ajustar,50)}});
   })();
+
+  /* ---------- MARCA-AGUA-v1: código de usuario, aviso de monitoreo y registro de actividad ---------- */
+  var AVISO_V='v1', marca=null, ultAct={}, actCargada=false, secActual='inicio';
+  function fechaHora(){var d=new Date(); function z(n){return String(n).padStart(2,'0')} return z(d.getDate())+'/'+z(d.getMonth()+1)+'/'+d.getFullYear()+' '+z(d.getHours())+':'+z(d.getMinutes())}
+  function act(accion,objeto,detalle){
+    if(!conAcceso(perfil)||!perfil.acepto_monitoreo_en) return;
+    var k=accion+'|'+(objeto||''), t=Date.now(); if(ultAct[k]&&t-ultAct[k]<4000) return; ultAct[k]=t;
+    sb.rpc('registrar_actividad',{p_accion:accion,p_objeto:objeto?String(objeto).slice(0,120):null,p_detalle:detalle||null}).then(function(r){if(r.error) console.warn('Actividad:',r.error.message)});
+  }
+  function pintarMarca(){
+    var cod=perfil&&perfil.codigo;
+    if(!cod||!conAcceso(perfil)){if(marca){marca.remove();marca=null} return}
+    var svg='<svg xmlns="http://www.w3.org/2000/svg" width="380" height="230"><g transform="rotate(-28 190 115)" fill="#ffffff" font-family="IBM Plex Mono,Menlo,monospace" text-anchor="middle">'+
+      '<text x="190" y="108" font-size="24" font-weight="700" letter-spacing="3">'+cod+'</text><text x="190" y="134" font-size="12" letter-spacing="1">'+fechaHora()+' · uso restringido</text></g></svg>';
+    if(!marca){marca=document.createElement('div'); marca.className='marca-agua'; marca.setAttribute('aria-hidden','true'); document.body.append(marca)}
+    marca.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(svg)+'")';
+  }
+  setInterval(pintarMarca,300000);
+  function avisoMonitoreo(){
+    if(!perfil||!conAcceso(perfil)||perfil.acepto_monitoreo_en||$('aviso-mon')) return;
+    var w=document.createElement('div'); w.className='aviso-mon'; w.id='aviso-mon'; w.setAttribute('role','dialog'); w.setAttribute('aria-modal','true');
+    w.innerHTML='<div class="caja-m"><h3>Aviso de seguridad de la información</h3>'+
+      '<p>Para proteger el material del portal, su cuenta tiene un código de identificación:</p><span class="cod-m"></span>'+
+      '<ul><li>El código aparece como marca de agua en todas las páginas y en las impresiones, y se agrega al final de todo texto que copie.</li>'+
+      '<li>El portal registra su actividad: ingresos, secciones y pestañas consultadas, departamentos seleccionados, reportes generados, impresiones, textos copiados y manuales abiertos o descargados.</li>'+
+      '<li>Finalidad: seguridad de la información y trazabilidad de su uso. Solo la administración del portal (CEDCO) consulta estos registros, que se conservan 12 meses.</li>'+
+      '<li>Puede consultar, corregir o pedir información sobre sus datos al administrador del portal (Ley 1581 de 2012).</li></ul>'+
+      '<p>Para usar el portal debe aceptar estas condiciones.</p><div class="fila-m"><button class="btn" type="button" id="b-acepto">Acepto</button><button class="btn-s" type="button" id="b-noacepto">No acepto y salir</button></div><p class="msj" id="m-aviso" hidden></p></div>';
+    w.querySelector('.cod-m').textContent=perfil.codigo||'';
+    document.body.append(w);
+    $('b-acepto').onclick=async function(){this.disabled=true; var r=await sb.rpc('aceptar_monitoreo',{p_version:AVISO_V});
+      if(r.error){msj('m-aviso','No se pudo registrar la aceptación: '+r.error.message,'error'); this.disabled=false; return}
+      perfil.acepto_monitoreo_en=new Date().toISOString(); w.remove(); pintarMarca(); act('ver_seccion',secActual)};
+    $('b-noacepto').onclick=async function(){await sb.auth.signOut(); w.remove(); location.hash='inicio'; location.reload()};
+  }
+  function enviarAlMarco(){var f=$('obs-frame'); if(!f||!f.contentWindow) return; try{f.contentWindow.postMessage({vigiaUsuario:perfil?((perfil.grado?perfil.grado+' ':'')+(perfil.nombre||perfil.correo||'')).trim():'',vigiaCodigo:(perfil&&perfil.codigo)||''},'*')}catch(e){}}
+  var pintarBase=pintar;
+  pintar=function(){pintarBase.apply(this,arguments); pintarMarca(); avisoMonitoreo(); enviarAlMarco();
+    if(perfil&&perfil.rol==='administrador'&&!actCargada){actCargada=true; cargarActividad()}};
+  var irAct=window.irSeccion;
+  window.irSeccion=function(id,arriba){irAct(id,arriba); secActual=id; act('ver_seccion',id); if(id==='observatorio') act('abrir_observatorio')};
+  /* lo que hace el usuario dentro del observatorio llega por mensaje desde su marco */
+  window.addEventListener('message',function(e){var f=$('obs-frame'); if(!f||e.source!==f.contentWindow) return; var d=e.data;
+    if(d&&d.vigiaListo) enviarAlMarco();
+    if(d&&d.vigiaActividad){var a=d.vigiaActividad; if(['ver_pestana','seleccionar_departamento','generar_reporte','imprimir','copiar_texto','captura_sospechosa'].indexOf(a.accion)>=0)
+      act(a.accion,'vigia:'+String(a.objeto||'').slice(0,100),a.detalle&&typeof a.detalle==='object'?a.detalle:null)}});
+  document.addEventListener('copy',function(e){
+    if(!conAcceso(perfil)||!perfil.codigo||!e.clipboardData) return; var t=String(window.getSelection()||''); if(t.trim().length<20) return;
+    e.clipboardData.setData('text/plain',t+'\n\n— Portal de Doctrina Conjunta · copia identificada '+perfil.codigo+' · '+fechaHora()); e.preventDefault();
+    act('copiar_texto',secActual,{caracteres:t.length})});
+  window.addEventListener('beforeprint',function(){pintarMarca(); act('imprimir',secActual)});
+  document.addEventListener('keyup',function(e){if(e.key==='PrintScreen') act('captura_sospechosa',secActual,{tecla:'PrintScreen'})});
+  document.addEventListener('keydown',function(e){if(e.metaKey&&e.shiftKey&&['3','4','5','#','$','%'].indexOf(e.key)>=0) act('captura_sospechosa',secActual,{tecla:'Cmd+Shift+'+e.key})});
+  /* panel del administrador */
+  function fh(t){return t?String(t).slice(0,16).replace('T',' ')+' UTC':'—'}
+  async function cargarActividad(){
+    var tb=$('lista-actividad'); if(!tb) return;
+    var r=await sb.rpc('resumen_actividad');
+    if(r.error){tb.innerHTML='<tr><td colspan="10" class="vacio">No se pudo cargar la actividad. ¿Se aplicó la migración de la base?</td></tr>';return}
+    tb.textContent='';
+    (r.data||[]).forEach(function(u){var tr=document.createElement('tr');
+      function c(x,cls){var td=document.createElement('td'); td.textContent=(x==null||x==='')?'—':String(x); if(cls) td.className=cls; tr.append(td)}
+      c(u.codigo); c(((u.grado||'')+' '+(u.nombre||'')).trim()); c(u.acepto_monitoreo_en?String(u.acepto_monitoreo_en).slice(0,10):'Pendiente');
+      c(fh(u.ultimo_evento)); c(u.eventos_30d); c(u.secciones_30d); c(u.copias_24h); c(u.descargas_24h); c(u.impresiones_30d); c(u.alerta||'', u.alerta?'alerta':'');
+      tr.style.cursor='pointer'; tr.onclick=function(){$('f-codigo').value=u.codigo; buscarCodigo()}; tb.append(tr)});
+  }
+  async function buscarCodigo(){
+    var q=($('f-codigo').value||'').toUpperCase().replace(/[^A-Z0-9]/g,''); var box=$('res-codigo'); box.textContent='';
+    if(q.length!==8){box.innerHTML='<p class="msj error">Escriba el código completo de 8 caracteres.</p>';return}
+    var cod=q.slice(0,4)+'-'+q.slice(4);
+    var r=await sb.rpc('actividad_por_codigo',{p_codigo:cod});
+    if(r.error){box.innerHTML='<p class="msj error"></p>'; box.firstChild.textContent='No se pudo consultar: '+r.error.message; return}
+    if(!r.data||!r.data.length){box.innerHTML='<p class="msj">Ningún usuario tiene el código '+cod+'.</p>';return}
+    var u=r.data[0], d=document.createElement('div'); d.className='caja';
+    var h=document.createElement('h3'); h.textContent=cod+' · '+((u.grado||'')+' '+(u.nombre||'')).trim(); d.append(h);
+    var p=document.createElement('p'); p.className='fte'; p.textContent=[u.correo,u.fuerza,u.unidad].filter(Boolean).join(' · '); d.append(p);
+    var ol=document.createElement('ol'); r.data.filter(function(x){return x.en}).forEach(function(x){var li=document.createElement('li');
+      li.textContent=fh(x.en)+' · '+x.accion+(x.objeto?' · '+x.objeto:'')+(x.detalle?' · '+JSON.stringify(x.detalle):''); ol.append(li)});
+    if(!ol.children.length){var li=document.createElement('li'); li.textContent='Sin actividad en los últimos 90 días.'; ol.append(li)} d.append(ol); box.append(d);
+  }
+  if($('b-codigo')){$('b-codigo').addEventListener('click',buscarCodigo); $('f-codigo').addEventListener('keydown',function(e){if(e.key==='Enter') buscarCodigo()})}
 
   sb.auth.onAuthStateChange(function(ev,s){
     if(ev==='PASSWORD_RECOVERY'){recuperando=true;vista('v-nueva');if(window.irSeccion) window.irSeccion('ingreso',true);return}
