@@ -413,19 +413,21 @@ body.leyendo{overflow:hidden}
 .acc-aviso b{display:block;color:#e2c47a;font-size:16px}.acc-aviso span{color:#cfd8ea;font-size:14px}
 .acc-aviso:hover{background:rgba(154,123,47,.22)}
 
-body.app:not(.puede-urano) #urano .urano-marco,body.app:not(.puede-urano) #urano #urano-volver{display:none}
-body.app.puede-urano #urano .urano-bloqueo{display:none}
-.urano-bloqueo{background:var(--surface);border:1px solid var(--line);border-left:3px solid #E5484D;border-radius:10px;padding:18px 20px;max-width:640px}
-.urano-bloqueo b{font-family:var(--display);font-size:20px;display:block;margin-bottom:6px}
-.urano-bloqueo p{margin:0;color:var(--muted)}
-.urano-marco{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0B1020}
-.urano-marco iframe{display:block;width:100%;height:max(640px,82vh);border:0}
-body[data-sec="urano"]{overflow:hidden}
-body[data-sec="urano"] .urano-marco{position:fixed;inset:0;z-index:10000;border:0;border-radius:0}
-body[data-sec="urano"] .urano-marco iframe{width:100vw;height:100vh;height:100dvh}
-body[data-sec="urano"] #urano-volver{display:inline-block;position:fixed;left:16px;bottom:16px;z-index:10001}
-body:not(.puede-urano) #tab-urano,body:not(.puede-urano) #menu-urano{display:none}
-.urano-admin textarea,.urano-admin input[type=text]{width:100%;min-width:220px}
+section[data-comp] .comp-marco,section[data-comp] .comp-volver{display:none}
+body.puede-urano #urano .comp-marco,body.puede-mando #comandante .comp-marco{display:block}
+body.puede-urano #urano .comp-bloqueo,body.puede-mando #comandante .comp-bloqueo{display:none}
+.comp-bloqueo{background:var(--surface);border:1px solid var(--line);border-left:3px solid #E5484D;border-radius:10px;padding:18px 20px;max-width:640px}
+.comp-bloqueo b{font-family:var(--display);font-size:20px;display:block;margin-bottom:6px}
+.comp-bloqueo p{margin:0;color:var(--muted)}
+.comp-marco{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0B1020}
+.comp-marco iframe{display:block;width:100%;height:max(640px,82vh);border:0}
+body[data-sec="urano"],body[data-sec="comandante"]{overflow:hidden}
+body[data-sec="urano"].puede-urano #urano .comp-marco,body[data-sec="comandante"].puede-mando #comandante .comp-marco{position:fixed;inset:0;z-index:10000;border:0;border-radius:0}
+body[data-sec="urano"] #urano .comp-marco iframe,body[data-sec="comandante"] #comandante .comp-marco iframe{width:100vw;height:100vh;height:100dvh}
+body[data-sec="urano"].puede-urano #urano .comp-volver,body[data-sec="comandante"].puede-mando #comandante .comp-volver{display:inline-block;position:fixed;left:16px;bottom:16px;z-index:10001}
+.tab-comp{display:none}body.puede-urano .tab-comp[data-comp="urano"],body.puede-mando .tab-comp[data-comp="mando"]{display:list-item}
+.sv-mando{display:none;margin-left:10px}body.puede-mando .sv-mando{display:inline-flex}
+.urano-admin input[type=text]{width:100%;min-width:160px;margin:0 0 6px}
 .urano-si{color:#3FB27F;font-weight:600}.urano-no{color:var(--muted)}
 
 /* ===== VISUAL-v1 ===== */
@@ -660,21 +662,30 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     <button class="btn-s" type="button" id="b-cargar">Cargar contenido generado</button>
     <p class="fte">Toma la última versión que produjo el generador (sitio/build_portal.py) y la deja disponible para las cuentas aprobadas.</p></div>
 <div class="caja urano-admin" id="urano-admin" style="margin-top:28px">
-  <h3>Acceso al compartimento FTC Urano</h3>
-  <p class="fte">Los administradores lo ven siempre. A las demás cuentas aprobadas solo se les muestra si aquí se les otorga, con un motivo. Cada otorgamiento, retiro y lectura queda en la bitácora. Si la cuenta vence, el acceso deja de funcionar.</p>
+  <h3>Acceso a los compartimentos restringidos</h3>
+  <p class="fte">FTC Urano y la Página del Comandante General. Los administradores los ven siempre. A las demás cuentas aprobadas solo se les muestran si aquí se les otorgan, con un motivo. Cada otorgamiento, retiro y lectura queda en la bitácora. Si la cuenta vence, el acceso deja de funcionar.</p>
   <p class="msj" id="m-urano" hidden></p>
-  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Rol</th><th>Acceso Urano</th><th>Motivo y fecha</th><th></th></tr></thead>
-    <tbody id="lista-urano"><tr><td colspan="5" class="vacio">Cargando…</td></tr></tbody></table></div>
+  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Rol</th><th>FTC Urano</th><th>Comandante</th></tr></thead>
+    <tbody id="lista-urano"><tr><td colspan="4" class="vacio">Cargando…</td></tr></tbody></table></div>
 </div>
 </section>
 
-<section id="urano" hidden>
+<section id="urano" hidden data-comp="urano">
   <div class="sec-t"><span class="ojo">Compartimento restringido</span><h2>FTC Urano · análisis</h2>
-    <p id="urano-estado">Verificando el permiso…</p></div>
-  <div class="urano-bloqueo"><b>Contenido restringido</b><p>Esta sección es solo para administradores y para las cuentas a las que la administración del portal les otorgó el acceso.</p></div>
-  <div class="urano-marco"><iframe id="urano-frame" title="FTC Urano · análisis"
+    <p class="comp-estado" id="urano-estado">Verificando el permiso…</p></div>
+  <div class="comp-bloqueo"><b>Contenido restringido</b><p>Esta sección es solo para administradores y para las cuentas a las que la administración del portal les otorgó el acceso.</p></div>
+  <div class="comp-marco"><iframe id="urano-frame" title="FTC Urano · análisis"
     sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"></iframe></div>
-  <button type="button" class="obs-volver" id="urano-volver">&larr; Volver al portal</button>
+  <button type="button" class="obs-volver comp-volver">&larr; Volver al portal</button>
+</section>
+
+<section id="comandante" hidden data-comp="mando">
+  <div class="sec-t"><span class="ojo">Compartimento restringido · alta dirección</span><h2>Página del Comandante General</h2>
+    <p class="comp-estado" id="comandante-estado">Verificando el permiso…</p></div>
+  <div class="comp-bloqueo"><b>Contenido restringido</b><p>Esta sección es solo para administradores y para las cuentas a las que la administración del portal les otorgó el acceso.</p></div>
+  <div class="comp-marco"><iframe id="comandante-frame" title="Página del Comandante General"
+    sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"></iframe></div>
+  <button type="button" class="obs-volver comp-volver">&larr; Volver al portal</button>
 </section>
 
 </main>
@@ -1542,76 +1553,79 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 (function(){
   var sb=window.__portalSb; if(!sb) return;
   function $(i){return document.getElementById(i)}
-  var perfil=null, puede=false, cargado=false, consultado=false;
+  var C={urano:{sec:'urano',tab:'FTC Urano'},mando:{sec:'comandante',tab:'Comandante'}};
+  var perfil=null, puede={}, cargado={}, consultado=false;
   function msj(id,t,cls){var m=$(id); if(!m) return; m.hidden=!t; m.textContent=t||''; m.className='msj'+(cls?' '+cls:'')}
-  function pestana(on){
+  function pestanas(){
     var ul=document.querySelector('.nav ul'), mu=document.querySelector('#menu ul');
-    if(on){
-      if(ul&&!$('tab-urano')){var li=document.createElement('li'); li.id='tab-urano'; li.innerHTML='<a href="#urano" role="tab" data-sec="urano">FTC Urano</a>';
-        var adm=ul.querySelector('a[data-sec="admin"]'); adm?ul.insertBefore(li,adm.parentNode):ul.append(li)}
-      if(mu&&!$('menu-urano')){var lm=document.createElement('li'); lm.id='menu-urano'; lm.innerHTML='<a href="#urano">FTC Urano</a>';
-        var am=mu.querySelector('a[href="#admin"]'); am?mu.insertBefore(lm,am.parentNode):mu.append(lm)}
-    }else{[$('tab-urano'),$('menu-urano')].forEach(function(x){if(x) x.remove()})}
+    Object.keys(C).forEach(function(k){var c=C[k], id='tab-'+c.sec, idm='menu-'+c.sec;
+      if(puede[k]){
+        if(ul&&!$(id)){var li=document.createElement('li'); li.id=id; li.className='tab-comp'; li.dataset.comp=k; li.innerHTML='<a href="#'+c.sec+'" role="tab" data-sec="'+c.sec+'">'+c.tab+'</a>';
+          var adm=ul.querySelector('a[data-sec="admin"]'); adm?ul.insertBefore(li,adm.parentNode):ul.append(li)}
+        if(mu&&!$(idm)){var lm=document.createElement('li'); lm.id=idm; lm.className='tab-comp'; lm.dataset.comp=k; lm.innerHTML='<a href="#'+c.sec+'">'+c.tab+'</a>';
+          var am=mu.querySelector('a[href="#admin"]'); am?mu.insertBefore(lm,am.parentNode):mu.append(lm)}
+      }else{[$(id),$(idm)].forEach(function(x){if(x) x.remove()})}});
+    /* acceso directo a la Página del Comandante junto al «Ingrese aquí» del sello VIGÍA (solo con permiso) */
+    var sv=$('sv-ingrese');
+    if(sv&&puede.mando&&!$('sv-mando')){var b=document.createElement('a'); b.id='sv-mando'; b.className='sv-btn sv-mando'; b.href='#comandante'; b.textContent='Página del Comandante'; sv.insertAdjacentElement('afterend',b)}
+    if(!puede.mando&&$('sv-mando')) $('sv-mando').remove();
   }
   async function verificar(){
     if(consultado) return; consultado=true;
-    var r=await sb.rpc('mis_compartimentos');
-    puede=!r.error&&Array.isArray(r.data)&&r.data.indexOf('urano')>=0;
-    document.body.classList.toggle('puede-urano',puede); pestana(puede);
-    if($('urano-estado')) $('urano-estado').textContent=puede?'Cargando…':'';
-    if(puede&&document.body.dataset.sec==='urano') cargar();
+    var r=await sb.rpc('mis_compartimentos'), L=(!r.error&&Array.isArray(r.data))?r.data:[];
+    Object.keys(C).forEach(function(k){puede[k]=L.indexOf(k)>=0; document.body.classList.toggle('puede-'+k,puede[k]); var e=$(C[k].sec+'-estado'); if(e) e.textContent=puede[k]?'Cargando…':''});
+    pestanas();
+    Object.keys(C).forEach(function(k){if(puede[k]&&document.body.dataset.sec===C[k].sec) cargar(k)});
   }
-  function limpiar(){puede=false; consultado=false; cargado=false; document.body.classList.remove('puede-urano'); pestana(false);
-    var f=$('urano-frame'); if(f) f.removeAttribute('srcdoc')}
+  function limpiar(){consultado=false; Object.keys(C).forEach(function(k){puede[k]=false; cargado[k]=false; document.body.classList.remove('puede-'+k); var f=$(C[k].sec+'-frame'); if(f) f.removeAttribute('srcdoc')}); pestanas()}
   document.addEventListener('portal-perfil',function(e){perfil=e.detail; if(perfil) verificar(); else limpiar()});
-  function datosUsuario(){var f=$('urano-frame'); if(!f||!f.contentWindow||!perfil) return; try{f.contentWindow.postMessage({vigiaUsuario:perfil.nombre||'',vigiaCodigo:perfil.codigo||''},'*')}catch(e){}}
-  async function cargar(){
-    if(!puede||cargado) return; cargado=true;
-    var r=await sb.rpc('leer_compartimento',{p_id:'urano'});
-    var x=r.data&&r.data[0];
-    if(r.error||!x){cargado=false; $('urano-estado').textContent=r.error?'No tiene permiso para este contenido o la sesión venció.':'Aún no se ha cargado el análisis de la FTC Urano.'; return}
-    $('urano-estado').textContent='Versión del '+String(x.actualizado_en).slice(0,16).replace('T',' ')+' UTC.';
-    var f=$('urano-frame'); f.addEventListener('load',datosUsuario,{once:true}); f.srcdoc=x.html;
+  function datosUsuario(k){var f=$(C[k].sec+'-frame'); if(!f||!f.contentWindow||!perfil) return; try{f.contentWindow.postMessage({vigiaUsuario:perfil.nombre||'',vigiaCodigo:perfil.codigo||''},'*')}catch(e){}}
+  async function cargar(k){
+    if(!puede[k]||cargado[k]) return; cargado[k]=true;
+    var r=await sb.rpc('leer_compartimento',{p_id:k}), x=r.data&&r.data[0], est=$(C[k].sec+'-estado');
+    if(r.error||!x){cargado[k]=false; est.textContent=r.error?'No tiene permiso para este contenido o la sesión venció.':'Aún no se ha cargado este contenido.'; return}
+    est.textContent='Versión del '+String(x.actualizado_en).slice(0,16).replace('T',' ')+' UTC.';
+    var f=$(C[k].sec+'-frame'); f.addEventListener('load',function(){datosUsuario(k)},{once:true}); f.srcdoc=x.html;
   }
-  window.addEventListener('message',function(e){var f=$('urano-frame'); if(f&&e.source===f.contentWindow&&e.data&&e.data.uranoListo) datosUsuario()});
+  window.addEventListener('message',function(e){Object.keys(C).forEach(function(k){var f=$(C[k].sec+'-frame'); if(f&&e.source===f.contentWindow&&e.data&&(e.data.uranoListo||e.data.compListo)) datosUsuario(k)})});
   var ir=window.irSeccion;
-  window.irSeccion=function(id,arriba){ir(id,arriba); if(id==='urano') cargar()};
-  document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('#urano-volver'); if(v){e.preventDefault(); location.hash='inicio'}});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.dataset.sec==='urano') location.hash='inicio'});
+  window.irSeccion=function(id,arriba){ir(id,arriba); Object.keys(C).forEach(function(k){if(id===C[k].sec) cargar(k)})};
+  document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('.comp-volver'); if(v){e.preventDefault(); location.hash='inicio'}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(document.body.dataset.sec==='urano'||document.body.dataset.sec==='comandante')) location.hash='inicio'});
 
-  /* Administración: otorgar o retirar el acceso, con motivo */
+  /* Administración: otorgar o retirar cada compartimento, con motivo */
   var US=[], OT={};
   async function cargarAdmin(){
     if(!$('lista-urano')) return;
     var a=await sb.rpc('usuarios_vinculados'), b=await sb.rpc('compartimentos_otorgados');
-    if(a.error||b.error){$('lista-urano').innerHTML='<tr><td colspan="5" class="vacio">No se pudo cargar (¿falta aplicar la migración del compartimento?).</td></tr>'; return}
-    US=a.data||[]; OT={}; (b.data||[]).forEach(function(x){if(x.compartimento==='urano') OT[x.usuario]=x});
+    if(a.error||b.error){$('lista-urano').innerHTML='<tr><td colspan="4" class="vacio">No se pudo cargar (¿falta aplicar la migración de los compartimentos?).</td></tr>'; return}
+    US=a.data||[]; OT={}; (b.data||[]).forEach(function(x){OT[x.usuario+'|'+x.compartimento]=x});
     pintarAdmin();
+  }
+  function celdaComp(tr,u,k){
+    var td=document.createElement('td'); tr.append(td);
+    if(u.rol==='administrador'){td.textContent='Sí (administrador)'; td.className='urano-si'; return}
+    var o=OT[u.id+'|'+k];
+    if(o){var s=document.createElement('div'); s.className='urano-si'; s.textContent='Sí · '+String(o.otorgado_en).slice(0,10); var m=document.createElement('small'); m.textContent=o.motivo||''; s.append(document.createElement('br'),m);
+      var bq=document.createElement('button'); bq.className='btn-s'; bq.type='button'; bq.textContent='Retirar'; bq.onclick=function(){cambiar(u.id,k,false,null)}; td.append(s,bq)}
+    else{var inp=document.createElement('input'); inp.type='text'; inp.placeholder='Motivo (obligatorio)'; inp.maxLength=300;
+      var bo=document.createElement('button'); bo.className='btn-s'; bo.type='button'; bo.textContent='Otorgar';
+      bo.onclick=function(){if(inp.value.trim().length<5){inp.focus(); msj('m-urano','Escriba el motivo del acceso.','error'); return} cambiar(u.id,k,true,inp.value.trim())}; td.append(inp,bo)}
   }
   function pintarAdmin(){
     var tb=$('lista-urano'); tb.textContent='';
     US.filter(function(u){return u.rol!=='pendiente'}).forEach(function(u){
-      var tr=document.createElement('tr'), o=OT[u.id];
-      function td(t,cls){var c=document.createElement('td'); c.textContent=t; if(cls) c.className=cls; tr.append(c); return c}
-      td(((u.grado||'')+' '+(u.nombre||'')).trim()||u.correo);
-      td(u.rol);
-      if(u.rol==='administrador'){td('Sí (administrador)','urano-si'); td('—'); td(''); tb.append(tr); return}
-      td(o?'Sí':'No',o?'urano-si':'urano-no');
-      var c=td(o?(o.motivo||'')+' · '+String(o.otorgado_en).slice(0,10):'');
-      var acc=document.createElement('td'); tr.append(acc);
-      if(o){var bq=document.createElement('button'); bq.className='btn-s'; bq.type='button'; bq.textContent='Retirar';
-        bq.onclick=function(){cambiar(u.id,false,null)}; acc.append(bq)}
-      else{var inp=document.createElement('input'); inp.type='text'; inp.placeholder='Motivo (obligatorio)'; inp.maxLength=300; c.append(inp);
-        var bo=document.createElement('button'); bo.className='btn-s'; bo.type='button'; bo.textContent='Otorgar';
-        bo.onclick=function(){if(inp.value.trim().length<5){inp.focus(); msj('m-urano','Escriba el motivo del acceso.','error'); return} cambiar(u.id,true,inp.value.trim())}; acc.append(bo)}
-      tb.append(tr)});
-    if(!tb.children.length) tb.innerHTML='<tr><td colspan="5" class="vacio">No hay cuentas aprobadas.</td></tr>';
+      var tr=document.createElement('tr');
+      function td(t){var c=document.createElement('td'); c.textContent=t; tr.append(c)}
+      td(((u.grado||'')+' '+(u.nombre||'')).trim()||u.correo); td(u.rol);
+      celdaComp(tr,u,'urano'); celdaComp(tr,u,'mando'); tb.append(tr)});
+    if(!tb.children.length) tb.innerHTML='<tr><td colspan="4" class="vacio">No hay cuentas aprobadas.</td></tr>';
   }
-  async function cambiar(uid,otorgar,motivo){
+  async function cambiar(uid,k,otorgar,motivo){
     msj('m-urano','');
-    var r=await sb.rpc('otorgar_compartimento',{p_usuario:uid,p_compartimento:'urano',p_otorgar:otorgar,p_motivo:motivo});
+    var r=await sb.rpc('otorgar_compartimento',{p_usuario:uid,p_compartimento:k,p_otorgar:otorgar,p_motivo:motivo});
     if(r.error){msj('m-urano',r.error.message,'error'); return}
-    msj('m-urano',otorgar?'Acceso otorgado.':'Acceso retirado.','ok'); cargarAdmin();
+    msj('m-urano',(otorgar?'Acceso otorgado: ':'Acceso retirado: ')+C[k].tab+'.','ok'); cargarAdmin();
   }
   var adm=false;
   document.addEventListener('portal-perfil',function(){if(!adm&&document.body.classList.contains('es-admin')){adm=true; cargarAdmin()}});
