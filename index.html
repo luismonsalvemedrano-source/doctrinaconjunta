@@ -126,6 +126,10 @@ section{padding-block:36px 60px}
 .c-alta,.c-actualizacion{color:var(--accent-2);border-color:rgba(245,196,81,.4)}
 .c-boletin{color:var(--accent);border-color:rgba(91,192,255,.4)}
 .c-evento{color:#9FE3B8;border-color:rgba(91,191,133,.45)}
+.nov-fotos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 0;max-width:1100px}
+.nov-img{margin:0}
+.nov-img img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
+.nov-img figcaption{margin-top:6px;font-size:13px;color:var(--muted)}
 .e-ok{color:var(--ok);background:var(--ok-bg);border-color:transparent}
 .e-alerta{color:var(--alerta);background:var(--alerta-bg);border-color:transparent}
 .e-neutro{color:var(--neutro);background:var(--neutro-bg);border-color:transparent}
@@ -1187,7 +1191,7 @@ body.leyendo{overflow:hidden}
   }
   setInterval(pintarMarca,300000);
   function avisoMonitoreo(){
-    if(!perfil||!conAcceso(perfil)||perfil.acepto_monitoreo_en||$('aviso-mon')) return;
+    if(!perfil||!perfil.codigo||!conAcceso(perfil)||perfil.acepto_monitoreo_en||$('aviso-mon')) return; /* sin la migración aplicada no se exige el aviso */
     var w=document.createElement('div'); w.className='aviso-mon'; w.id='aviso-mon'; w.setAttribute('role','dialog'); w.setAttribute('aria-modal','true');
     w.innerHTML='<div class="caja-m"><h3>Aviso de seguridad de la información</h3>'+
       '<p>Para proteger el material del portal, su cuenta tiene un código de identificación:</p><span class="cod-m"></span>'+
