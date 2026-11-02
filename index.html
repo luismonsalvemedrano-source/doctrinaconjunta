@@ -449,6 +449,9 @@ details.vg-calc>summary{cursor:pointer;color:var(--vg-cian);font-size:14px}
 .nov-c{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;transition:border-color .18s}
 .nov:hover .nov-c{border-color:var(--accent)}
 /* legibilidad */
+.legib-p.cerrado button:not(.lg-t){display:none}.legib-p.cerrado{opacity:.85}.legib-p .lg-t{font-weight:700}
+body[data-sec="observatorio"] .legib-p,body.obs-full .legib-p{display:none}
+body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 .legib-p{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:rgba(5,12,32,.92);box-shadow:0 8px 24px rgba(0,0,0,.45)}
 .legib-p button{font:600 14px var(--body);color:var(--ink);background:none;border:0;border-radius:999px;padding:9px 13px;cursor:pointer;min-height:40px}
 .legib-p button:hover,.legib-p button[aria-pressed="true"]{background:var(--surface)}
@@ -1385,7 +1388,13 @@ details.vg-calc>summary{cursor:pointer;color:var(--vg-cian);font-size:14px}
   b1.setAttribute('aria-label','Reducir letra'); b2.setAttribute('aria-label','Ampliar letra'); b3.setAttribute('aria-pressed',document.body.classList.contains('hc')?'true':'false');
   b1.onclick=function(){if(zi>0){zi--;aplicarZoom()}}; b2.onclick=function(){if(zi<Z.length-1){zi++;aplicarZoom()}};
   b3.onclick=function(){var on=document.body.classList.toggle('hc'); b3.setAttribute('aria-pressed',on?'true':'false'); try{localStorage.setItem('pdc-hc',on?'1':'0')}catch(e){}};
-  lp.append(b1,b2,b3); document.body.append(lp);
+  /* plegado en «Aa»: se abre al tocar y se cierra al desplazar la página o tocar fuera */
+  var b0=h('button','lg-t','Aa'); b0.type='button'; b0.setAttribute('aria-label','Tamaño de letra y contraste'); b0.setAttribute('aria-expanded','false');
+  lp.classList.add('cerrado'); function cerrarLp(){lp.classList.add('cerrado'); b0.setAttribute('aria-expanded','false')}
+  b0.onclick=function(){var c=lp.classList.toggle('cerrado'); b0.setAttribute('aria-expanded',c?'false':'true')};
+  var yLp=window.scrollY; window.addEventListener('scroll',function(){if(Math.abs(window.scrollY-yLp)>40){cerrarLp(); yLp=window.scrollY}},{passive:true});
+  document.addEventListener('click',function(e){if(!lp.contains(e.target)) cerrarLp()});
+  lp.append(b0,b1,b2,b3); document.body.append(lp);
   /* --- portada: escudo grande --- */
   (function(){var t=document.querySelector('.titular'), im=document.querySelector('.esdeg img'); if(!t||!im||t.querySelector('.esc-grande')) return;
     var tx=h('div','tx'); while(t.firstChild) tx.append(t.firstChild); var g=h('div','esc-grande'); var i2=new Image(); i2.src=im.src; i2.alt=''; g.append(i2); t.append(g,tx)})();
