@@ -236,6 +236,13 @@ body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a
 .cuenta{max-width:620px}
 .obs-marco{border:1px solid var(--vg-line);border-radius:10px;overflow:hidden;background:var(--vg-bg)}
 .obs-marco iframe{display:block;width:100%;height:max(640px,82vh);border:0}
+/* observatorio a pantalla completa */
+.obs-volver{display:none;position:fixed;left:12px;bottom:12px;z-index:10001;font:600 13px var(--display);color:#EAF3FF;background:rgba(5,10,30,.92);border:1px solid #2A4C86;border-radius:20px;padding:8px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.obs-volver:hover{border-color:#22D3EE;color:#22D3EE}
+body.obs-full{overflow:hidden}
+body.obs-full .obs-marco{position:fixed;inset:0;z-index:10000;border:0;border-radius:0}
+body.obs-full .obs-marco iframe{width:100vw;height:100vh;height:100dvh}
+body.obs-full .obs-volver{display:inline-block}
 .pestanas{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
 .pestanas button{font:600 16px var(--display);color:var(--muted);background:none;border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer}
 .pestanas button[aria-pressed="true"]{color:var(--ink);border-color:var(--accent);background:rgba(91,192,255,.08)}
@@ -454,7 +461,7 @@ body.leyendo{overflow:hidden}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 1 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 2 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1129,6 +1136,13 @@ body.leyendo{overflow:hidden}
 
   var irBase=window.irSeccion;
   window.irSeccion=function(id,arriba){irBase(id,arriba); if(id==='observatorio') cargarVigia()};
+  /* el observatorio ocupa toda la pantalla mientras su sección está abierta */
+  (function(){var sec=document.getElementById('observatorio'); if(!sec) return;
+    function ajustar(){document.body.classList.toggle('obs-full',!sec.hidden)}
+    new MutationObserver(ajustar).observe(sec,{attributes:true,attributeFilter:['hidden']}); ajustar();
+    var v=document.getElementById('obs-volver'); if(v) v.addEventListener('click',function(){window.irSeccion('inicio',true)});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!sec.hidden) window.irSeccion('inicio',true)});
+  })();
 
   sb.auth.onAuthStateChange(function(ev,s){
     if(ev==='PASSWORD_RECOVERY'){recuperando=true;vista('v-nueva');if(window.irSeccion) window.irSeccion('ingreso',true);return}
