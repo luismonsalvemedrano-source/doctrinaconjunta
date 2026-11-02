@@ -929,7 +929,7 @@ body.leyendo{overflow:hidden}
     var r=await sb.from('contenido_portal').select('html,actualizado_en').eq('id','vigia').maybeSingle();
     if(r.error||!r.data){vigiaCargado=false;$('obs-estado').textContent='El observatorio no está disponible en este momento.';return}
     $('obs-frame').srcdoc=r.data.html;
-    $('obs-frame').addEventListener('load',function(){if(obsPestana){try{$('obs-frame').contentWindow.postMessage({vigia:obsPestana},'*')}catch(e){}}});
+    $('obs-frame').addEventListener('load',function(){var w=$('obs-frame').contentWindow; try{w.postMessage({vigiaUsuario:perfil?((perfil.grado?perfil.grado+' ':'')+(perfil.nombre||perfil.correo||'')).trim():''},'*')}catch(e){} if(obsPestana){try{w.postMessage({vigia:obsPestana},'*')}catch(e){}}});
     $('obs-estado').textContent='Versión cargada el '+r.data.actualizado_en.slice(0,16).replace('T',' ')+' UTC. Fuente abierta; no es reporte de inteligencia.';
   }
   /* ---------- manuales en línea: portadas y PDF salen del almacén privado con enlaces firmados de 1 hora ---------- */
