@@ -414,21 +414,21 @@ body.leyendo{overflow:hidden}
 .acc-aviso:hover{background:rgba(154,123,47,.22)}
 
 section[data-comp] .comp-marco,section[data-comp] .comp-volver{display:none}
-body.puede-urano #urano .comp-marco,body.puede-mando #comandante .comp-marco{display:block}
-body.puede-urano #urano .comp-bloqueo,body.puede-mando #comandante .comp-bloqueo{display:none}
+body.puede-comp #compartimento .comp-marco,body.puede-mando #comandante .comp-marco{display:block}
+body.puede-comp #compartimento .comp-bloqueo,body.puede-mando #comandante .comp-bloqueo{display:none}
 .comp-bloqueo{background:var(--surface);border:1px solid var(--line);border-left:3px solid #E5484D;border-radius:10px;padding:18px 20px;max-width:640px}
 .comp-bloqueo b{font-family:var(--display);font-size:20px;display:block;margin-bottom:6px}
 .comp-bloqueo p{margin:0;color:var(--muted)}
 .comp-marco{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0B1020}
 .comp-marco iframe{display:block;width:100%;height:max(640px,82vh);border:0}
-body[data-sec="urano"],body[data-sec="comandante"]{overflow:hidden}
-body[data-sec="urano"].puede-urano #urano .comp-marco,body[data-sec="comandante"].puede-mando #comandante .comp-marco{position:fixed;inset:0;z-index:10000;border:0;border-radius:0}
-body[data-sec="urano"] #urano .comp-marco iframe,body[data-sec="comandante"] #comandante .comp-marco iframe{width:100vw;height:100vh;height:100dvh}
-body[data-sec="urano"].puede-urano #urano .comp-volver,body[data-sec="comandante"].puede-mando #comandante .comp-volver{display:inline-block;position:fixed;left:16px;bottom:16px;z-index:10001}
-.tab-comp{display:none}body.puede-urano .tab-comp[data-comp="urano"],body.puede-mando .tab-comp[data-comp="mando"]{display:list-item}
+body[data-sec="compartimento"],body[data-sec="comandante"]{overflow:hidden}
+body[data-sec="compartimento"].puede-comp #compartimento .comp-marco,body[data-sec="comandante"].puede-mando #comandante .comp-marco{position:fixed;inset:0;z-index:10000;border:0;border-radius:0}
+body[data-sec="compartimento"] #compartimento .comp-marco iframe,body[data-sec="comandante"] #comandante .comp-marco iframe{width:100vw;height:100vh;height:100dvh}
+body[data-sec="compartimento"].puede-comp #compartimento .comp-volver,body[data-sec="comandante"].puede-mando #comandante .comp-volver{display:inline-block;position:fixed;left:16px;bottom:16px;z-index:10001}
+.tab-comp{display:none}body.puede-comp .tab-comp[data-comp="comp"],body.puede-mando .tab-comp[data-comp="mando"]{display:list-item}
 .sv-mando{display:none;margin-left:10px}body.puede-mando .sv-mando{display:inline-flex}
-.urano-admin input[type=text]{width:100%;min-width:160px;margin:0 0 6px}
-.urano-si{color:#3FB27F;font-weight:600}.urano-no{color:var(--muted)}
+.comp-admin input[type=text]{width:100%;min-width:160px;margin:0 0 6px}
+.comp-si{color:#3FB27F;font-weight:600}.comp-no{color:var(--muted)}
 
 /* ===== VISUAL-v1 ===== */
 main.env,.nav .env{zoom:var(--zoom,1)}
@@ -549,11 +549,11 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 
 <div class="menu" id="menu" hidden><div class="panel" role="dialog" aria-label="Menú del portal">
   <button class="bt cerrar" id="b-cerrar" type="button">Cerrar</button>
-  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">Observatorio VIGÍA</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
+  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">Observatorio VIGÍA</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener">Proyectos de investigación</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
   <p class="fte">Centro de Doctrina Conjunta (CEDCO) · Escuela Superior de Guerra</p>
 </div></div>
 
-<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">Observatorio VIGÍA</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
+<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">Observatorio VIGÍA</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener" role="tab">Proyectos de investigación</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
 
 <main class="env">
 
@@ -661,26 +661,26 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     <p class="fte" id="c-version" style="margin:0 0 12px">Sin cargar.</p>
     <button class="btn-s" type="button" id="b-cargar">Cargar contenido generado</button>
     <p class="fte">Toma la última versión que produjo el generador (sitio/build_portal.py) y la deja disponible para las cuentas aprobadas.</p></div>
-<div class="caja urano-admin" id="urano-admin" style="margin-top:28px">
+<div class="caja comp-admin" id="comp-admin" style="margin-top:28px">
   <h3>Acceso a los compartimentos restringidos</h3>
-  <p class="fte">FTC Urano y la Página del Comandante General. Los administradores los ven siempre. A las demás cuentas aprobadas solo se les muestran si aquí se les otorgan, con un motivo. Cada otorgamiento, retiro y lectura queda en la bitácora. Si la cuenta vence, el acceso deja de funcionar.</p>
-  <p class="msj" id="m-urano" hidden></p>
-  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Rol</th><th>FTC Urano</th><th>Comandante</th></tr></thead>
-    <tbody id="lista-urano"><tr><td colspan="4" class="vacio">Cargando…</td></tr></tbody></table></div>
+  <p class="fte">Los administradores los ven siempre. A las demás cuentas aprobadas solo se les muestran si aquí se les otorgan, con un motivo. Cada otorgamiento, retiro y lectura queda en la bitácora. Si la cuenta vence, el acceso deja de funcionar.</p>
+  <p class="msj" id="m-comp" hidden></p>
+  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Rol</th><th id="th-comp">Compartimento</th><th>Comandante</th></tr></thead>
+    <tbody id="lista-comp"><tr><td colspan="4" class="vacio">Cargando…</td></tr></tbody></table></div>
 </div>
 </section>
 
-<section id="urano" hidden data-comp="urano">
-  <div class="sec-t"><span class="ojo">Compartimento restringido</span><h2>FTC Urano · análisis</h2>
-    <p class="comp-estado" id="urano-estado">Verificando el permiso…</p></div>
+<section id="compartimento" hidden data-comp="comp">
+  <div class="sec-t"><span class="ojo">Compartimento restringido</span><h2 id="compartimento-titulo">Compartimento restringido</h2>
+    <p class="comp-estado" id="compartimento-estado">Verificando el permiso…</p></div>
   <div class="comp-bloqueo"><b>Contenido restringido</b><p>Esta sección es solo para administradores y para las cuentas a las que la administración del portal les otorgó el acceso.</p></div>
-  <div class="comp-marco"><iframe id="urano-frame" title="FTC Urano · análisis"
+  <div class="comp-marco"><iframe id="compartimento-frame" title="Compartimento restringido"
     sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"></iframe></div>
   <button type="button" class="obs-volver comp-volver">&larr; Volver al portal</button>
 </section>
 
 <section id="comandante" hidden data-comp="mando">
-  <div class="sec-t"><span class="ojo">Compartimento restringido · alta dirección</span><h2>Página del Comandante General</h2>
+  <div class="sec-t"><span class="ojo">Compartimento restringido · alta dirección</span><h2 id="comandante-titulo">Página del Comandante General</h2>
     <p class="comp-estado" id="comandante-estado">Verificando el permiso…</p></div>
   <div class="comp-bloqueo"><b>Contenido restringido</b><p>Esta sección es solo para administradores y para las cuentas a las que la administración del portal les otorgó el acceso.</p></div>
   <div class="comp-marco"><iframe id="comandante-frame" title="Página del Comandante General"
@@ -693,7 +693,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 2 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 3 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1010,7 +1010,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 (function(){
   var C=window.PORTAL_CFG; if(!window.supabase||!C){console.error('No se cargó el cliente de Supabase');return}
   var sb=supabase.createClient(C.url,C.llave,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-  window.__portalSb=sb; /* compartimentos restringidos (urano_app) */
+  window.__portalSb=sb; /* compartimentos restringidos */
   var $=function(id){return document.getElementById(id)};
   var perfil=null, recuperando=false, ROLES={pendiente:'Pendiente de aprobación',lector:'Lector',editor:'Editor',administrador:'Administrador'};
   document.body.classList.add('app');
@@ -1501,7 +1501,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     try{document.dispatchEvent(new CustomEvent('portal-perfil',{detail:conAcceso(perfil)?{nombre:((perfil.grado?perfil.grado+' ':'')+String(perfil.nombre||'').split(' ').slice(0,2).join(' ')).trim(),codigo:perfil.codigo||'',sesion:new Date().toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}:null}))}catch(e){}
     if(perfil&&perfil.rol==='administrador'&&!actCargada){actCargada=true; cargarActividad()}};
   var irAct=window.irSeccion;
-  window.irSeccion=function(id,arriba){irAct(id,arriba); secActual=id; act('ver_seccion',id); if(id==='observatorio') act('abrir_observatorio')};
+  window.irSeccion=function(id,arriba){irAct(id,arriba); if(!/^[a-z0-9-]{1,40}$/.test(String(id||''))) id='inicio'; /* nunca registrar el fragmento de la URL (puede traer el token de sesión del enlace de confirmación) */ secActual=id; act('ver_seccion',id); if(id==='observatorio') act('abrir_observatorio')};
   /* lo que hace el usuario dentro del observatorio llega por mensaje desde su marco */
   window.addEventListener('message',function(e){var f=$('obs-frame'); if(!f||e.source!==f.contentWindow) return; var d=e.data;
     if(d&&d.vigiaListo) enviarAlMarco();
@@ -1553,9 +1553,17 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 (function(){
   var sb=window.__portalSb; if(!sb) return;
   function $(i){return document.getElementById(i)}
-  var C={urano:{sec:'urano',tab:'FTC Urano'},mando:{sec:'comandante',tab:'Comandante'}};
-  var perfil=null, puede={}, cargado={}, consultado=false;
+  var C={comp:{sec:'compartimento',tab:'Compartimento',id:null},mando:{sec:'comandante',tab:'Comandante',id:'mando'}};
+  var perfil=null, puede={}, cargado={}, consultado=false, listo=Promise.resolve();
   function msj(id,t,cls){var m=$(id); if(!m) return; m.hidden=!t; m.textContent=t||''; m.className='msj'+(cls?' '+cls:'')}
+  /* El nombre del compartimento no viaja en la página: sale del identificador que la base entrega solo a quien tiene permiso. */
+  function nombrar(id){
+    C.comp.id=id; C.comp.tab=id?id.charAt(0).toUpperCase()+id.slice(1):'Compartimento';
+    var t=id?C.comp.tab+' · análisis':'Compartimento restringido';
+    if($('compartimento-titulo')) $('compartimento-titulo').textContent=t;
+    if($('compartimento-frame')) $('compartimento-frame').title=t;
+    if($('th-comp')) $('th-comp').textContent=C.comp.tab;
+  }
   function pestanas(){
     var ul=document.querySelector('.nav ul'), mu=document.querySelector('#menu ul');
     Object.keys(C).forEach(function(k){var c=C[k], id='tab-'+c.sec, idm='menu-'+c.sec;
@@ -1571,61 +1579,64 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     if(!puede.mando&&$('sv-mando')) $('sv-mando').remove();
   }
   async function verificar(){
-    if(consultado) return; consultado=true;
+    consultado=true;
     var r=await sb.rpc('mis_compartimentos'), L=(!r.error&&Array.isArray(r.data))?r.data:[];
-    Object.keys(C).forEach(function(k){puede[k]=L.indexOf(k)>=0; document.body.classList.toggle('puede-'+k,puede[k]); var e=$(C[k].sec+'-estado'); if(e) e.textContent=puede[k]?'Cargando…':''});
+    nombrar(L.filter(function(x){return x!=='mando'})[0]||null);
+    Object.keys(C).forEach(function(k){puede[k]=!!C[k].id&&L.indexOf(C[k].id)>=0; document.body.classList.toggle('puede-'+k,puede[k]); var e=$(C[k].sec+'-estado'); if(e) e.textContent=puede[k]?'Cargando…':''});
     pestanas();
     Object.keys(C).forEach(function(k){if(puede[k]&&document.body.dataset.sec===C[k].sec) cargar(k)});
   }
-  function limpiar(){consultado=false; Object.keys(C).forEach(function(k){puede[k]=false; cargado[k]=false; document.body.classList.remove('puede-'+k); var f=$(C[k].sec+'-frame'); if(f) f.removeAttribute('srcdoc')}); pestanas()}
-  document.addEventListener('portal-perfil',function(e){perfil=e.detail; if(perfil) verificar(); else limpiar()});
+  function limpiar(){consultado=false; Object.keys(C).forEach(function(k){puede[k]=false; cargado[k]=false; document.body.classList.remove('puede-'+k); var f=$(C[k].sec+'-frame'); if(f) f.removeAttribute('srcdoc')}); pestanas(); nombrar(null)}
+  document.addEventListener('portal-perfil',function(e){perfil=e.detail; if(!perfil) limpiar(); else if(!consultado) listo=verificar()});
   function datosUsuario(k){var f=$(C[k].sec+'-frame'); if(!f||!f.contentWindow||!perfil) return; try{f.contentWindow.postMessage({vigiaUsuario:perfil.nombre||'',vigiaCodigo:perfil.codigo||''},'*')}catch(e){}}
   async function cargar(k){
     if(!puede[k]||cargado[k]) return; cargado[k]=true;
-    var r=await sb.rpc('leer_compartimento',{p_id:k}), x=r.data&&r.data[0], est=$(C[k].sec+'-estado');
+    var r=await sb.rpc('leer_compartimento',{p_id:C[k].id}), x=r.data&&r.data[0], est=$(C[k].sec+'-estado');
     if(r.error||!x){cargado[k]=false; est.textContent=r.error?'No tiene permiso para este contenido o la sesión venció.':'Aún no se ha cargado este contenido.'; return}
     est.textContent='Versión del '+String(x.actualizado_en).slice(0,16).replace('T',' ')+' UTC.';
     var f=$(C[k].sec+'-frame'); f.addEventListener('load',function(){datosUsuario(k)},{once:true}); f.srcdoc=x.html;
   }
-  window.addEventListener('message',function(e){Object.keys(C).forEach(function(k){var f=$(C[k].sec+'-frame'); if(f&&e.source===f.contentWindow&&e.data&&(e.data.uranoListo||e.data.compListo)) datosUsuario(k)})});
+  /* cada marco avisa con una señal «…Listo» cuando termina de cargar */
+  window.addEventListener('message',function(e){Object.keys(C).forEach(function(k){var f=$(C[k].sec+'-frame'); if(f&&e.source===f.contentWindow&&e.data&&typeof e.data==='object'&&Object.keys(e.data).some(function(x){return /Listo$/.test(x)&&e.data[x]})) datosUsuario(k)})});
   var ir=window.irSeccion;
   window.irSeccion=function(id,arriba){ir(id,arriba); Object.keys(C).forEach(function(k){if(id===C[k].sec) cargar(k)})};
   document.addEventListener('click',function(e){var v=e.target.closest&&e.target.closest('.comp-volver'); if(v){e.preventDefault(); location.hash='inicio'}});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(document.body.dataset.sec==='urano'||document.body.dataset.sec==='comandante')) location.hash='inicio'});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(document.body.dataset.sec==='compartimento'||document.body.dataset.sec==='comandante')) location.hash='inicio'});
 
   /* Administración: otorgar o retirar cada compartimento, con motivo */
   var US=[], OT={};
   async function cargarAdmin(){
-    if(!$('lista-urano')) return;
+    if(!$('lista-comp')) return;
+    await listo;
     var a=await sb.rpc('usuarios_vinculados'), b=await sb.rpc('compartimentos_otorgados');
-    if(a.error||b.error){$('lista-urano').innerHTML='<tr><td colspan="4" class="vacio">No se pudo cargar (¿falta aplicar la migración de los compartimentos?).</td></tr>'; return}
+    if(a.error||b.error){$('lista-comp').innerHTML='<tr><td colspan="4" class="vacio">No se pudo cargar (¿falta aplicar la migración de los compartimentos?).</td></tr>'; return}
     US=a.data||[]; OT={}; (b.data||[]).forEach(function(x){OT[x.usuario+'|'+x.compartimento]=x});
     pintarAdmin();
   }
   function celdaComp(tr,u,k){
     var td=document.createElement('td'); tr.append(td);
-    if(u.rol==='administrador'){td.textContent='Sí (administrador)'; td.className='urano-si'; return}
-    var o=OT[u.id+'|'+k];
-    if(o){var s=document.createElement('div'); s.className='urano-si'; s.textContent='Sí · '+String(o.otorgado_en).slice(0,10); var m=document.createElement('small'); m.textContent=o.motivo||''; s.append(document.createElement('br'),m);
+    if(u.rol==='administrador'){td.textContent='Sí (administrador)'; td.className='comp-si'; return}
+    var o=OT[u.id+'|'+C[k].id];
+    if(o){var s=document.createElement('div'); s.className='comp-si'; s.textContent='Sí · '+String(o.otorgado_en).slice(0,10); var m=document.createElement('small'); m.textContent=o.motivo||''; s.append(document.createElement('br'),m);
       var bq=document.createElement('button'); bq.className='btn-s'; bq.type='button'; bq.textContent='Retirar'; bq.onclick=function(){cambiar(u.id,k,false,null)}; td.append(s,bq)}
     else{var inp=document.createElement('input'); inp.type='text'; inp.placeholder='Motivo (obligatorio)'; inp.maxLength=300;
       var bo=document.createElement('button'); bo.className='btn-s'; bo.type='button'; bo.textContent='Otorgar';
-      bo.onclick=function(){if(inp.value.trim().length<5){inp.focus(); msj('m-urano','Escriba el motivo del acceso.','error'); return} cambiar(u.id,k,true,inp.value.trim())}; td.append(inp,bo)}
+      bo.onclick=function(){if(inp.value.trim().length<5){inp.focus(); msj('m-comp','Escriba el motivo del acceso.','error'); return} cambiar(u.id,k,true,inp.value.trim())}; td.append(inp,bo)}
   }
   function pintarAdmin(){
-    var tb=$('lista-urano'); tb.textContent='';
+    var tb=$('lista-comp'); tb.textContent='';
     US.filter(function(u){return u.rol!=='pendiente'}).forEach(function(u){
       var tr=document.createElement('tr');
       function td(t){var c=document.createElement('td'); c.textContent=t; tr.append(c)}
       td(((u.grado||'')+' '+(u.nombre||'')).trim()||u.correo); td(u.rol);
-      celdaComp(tr,u,'urano'); celdaComp(tr,u,'mando'); tb.append(tr)});
+      celdaComp(tr,u,'comp'); celdaComp(tr,u,'mando'); tb.append(tr)});
     if(!tb.children.length) tb.innerHTML='<tr><td colspan="4" class="vacio">No hay cuentas aprobadas.</td></tr>';
   }
   async function cambiar(uid,k,otorgar,motivo){
-    msj('m-urano','');
-    var r=await sb.rpc('otorgar_compartimento',{p_usuario:uid,p_compartimento:k,p_otorgar:otorgar,p_motivo:motivo});
-    if(r.error){msj('m-urano',r.error.message,'error'); return}
-    msj('m-urano',(otorgar?'Acceso otorgado: ':'Acceso retirado: ')+C[k].tab+'.','ok'); cargarAdmin();
+    msj('m-comp','');
+    var r=await sb.rpc('otorgar_compartimento',{p_usuario:uid,p_compartimento:C[k].id,p_otorgar:otorgar,p_motivo:motivo});
+    if(r.error){msj('m-comp',r.error.message,'error'); return}
+    msj('m-comp',(otorgar?'Acceso otorgado: ':'Acceso retirado: ')+C[k].tab+'.','ok'); cargarAdmin();
   }
   var adm=false;
   document.addEventListener('portal-perfil',function(){if(!adm&&document.body.classList.contains('es-admin')){adm=true; cargarAdmin()}});
@@ -1656,11 +1667,11 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   /* --- portada: escudo grande --- */
   (function(){var t=document.querySelector('.titular'), im=document.querySelector('.esdeg img'); if(!t||!im||t.querySelector('.esc-grande')) return;
     var tx=h('div','tx'); while(t.firstChild) tx.append(t.firstChild); var g=h('div','esc-grande'); var i2=new Image(); i2.src=im.src; i2.alt=''; g.append(i2); t.append(g,tx)})();
-  var ICO={novedades:'<path d="M6 6h16v20H6z"/><path d="M22 10h4v14a2 2 0 0 1-4 0"/><path d="M10 11h8M10 15h8M10 19h5"/>',biblioteca:'<path d="M5 6h6v20H5zM13 6h6v20h-6z"/><path d="M21 7l5-1 3 19-5 1z"/>',produccion:'<circle cx="16" cy="16" r="5"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/>',asistente:'<path d="M5 7h22v14H14l-6 5v-5H5z"/><path d="M10 12h12M10 16h8"/>'};
+  var ICO={novedades:'<path d="M6 6h16v20H6z"/><path d="M22 10h4v14a2 2 0 0 1-4 0"/><path d="M10 11h8M10 15h8M10 19h5"/>',biblioteca:'<path d="M5 6h6v20H5zM13 6h6v20h-6z"/><path d="M21 7l5-1 3 19-5 1z"/>',produccion:'<circle cx="16" cy="16" r="5"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/>',asistente:'<path d="M5 7h22v14H14l-6 5v-5H5z"/><path d="M10 12h12M10 16h8"/>',proyectos:'<path d="M5 26h22"/><path d="M8 26V16h4v10M14 26V10h4v16M20 26V6h4v20"/>'};
   var PERFIL=null;
   function mejorarInicio(){
     var ini=document.getElementById('inicio'); if(!ini||!ini.querySelector('.accesos')) return;
-    [].forEach.call(ini.querySelectorAll('.acc'),function(a){var k=(a.getAttribute('href')||'').slice(1); if(ICO[k]&&!a.querySelector('.ico')) a.insertAdjacentHTML('beforeend','<svg class="ico" viewBox="0 0 32 32" aria-hidden="true">'+ICO[k]+'</svg>')});
+    [].forEach.call(ini.querySelectorAll('.acc'),function(a){var k=a.dataset.ico||(a.getAttribute('href')||'').slice(1); if(ICO[k]&&!a.querySelector('.ico')) a.insertAdjacentHTML('beforeend','<svg class="ico" viewBox="0 0 32 32" aria-hidden="true">'+ICO[k]+'</svg>')});
     var col=ini.querySelector('.inicio>div');
     if(col&&!ini.querySelector('.preg-ini')&&document.getElementById('asis-preg')){
       var f=h('form','preg-ini'); var inp=h('input'); inp.type='search'; inp.placeholder='Pregunte a la doctrina… p. ej. ¿qué fases tiene el planeamiento conjunto?'; inp.setAttribute('aria-label','Pregunta para el asistente doctrinal');
