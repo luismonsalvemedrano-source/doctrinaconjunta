@@ -755,7 +755,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 19 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 20 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1208,7 +1208,8 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   window.addEventListener('hashchange',function(){if(location.hash==='#estudio') setTimeout(iniciar,60)});
   new MutationObserver(function(){if(document.getElementById('estudio-datos')&&!document.getElementById('estudio-datos').dataset.listo&&document.body.dataset.sec==='estudio') iniciar()})
     .observe(document.body,{childList:true,subtree:true});
-  if(document.body.dataset.sec==='estudio') iniciar();
+  var s0=document.getElementById('estudio');
+  if(document.body.dataset.sec==='estudio'||(s0&&!s0.hidden)) iniciar();   /* acceso rápido: la sección ya está visible */
 })();
 </script>
 
