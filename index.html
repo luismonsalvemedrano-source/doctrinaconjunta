@@ -321,6 +321,30 @@ footer p{margin:0}
 .es-crono{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;font-size:14.5px;margin:0 0 14px}
 .es-crono dt{font-family:var(--mono);font-size:13px;color:var(--accent-2)}.es-crono dd{margin:0}
 
+.es-tab-prueba{border-color:#E5B94E!important;color:#E5B94E!important;font-weight:600}
+.es-nav button[disabled]{opacity:.35;cursor:not-allowed}
+.es-prueba-cab{border:1px solid #E5B94E;border-radius:12px;padding:16px 20px;margin:0 0 16px;background:rgba(229,185,78,.07);max-width:860px}
+.es-prueba-cab h3{font-family:var(--display);font-weight:600;font-size:24px;margin:0 0 8px}
+.es-ex-form{display:grid;gap:12px;max-width:560px}
+.es-ex-form label{display:grid;gap:4px;font-size:14px;color:var(--muted)}
+.es-ex-form select,.es-ex-form input[type=text]{font:inherit;font-size:15px;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+.es-ex-form .es-ex-ok{display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.es-ex-ok input{margin-top:4px;width:18px;height:18px}
+.es-ex-msj{color:#F87171;margin:0;font-size:14.5px}
+.es-ia-cab{max-width:860px}.es-ia-cab h3{font-family:var(--display);font-weight:600;font-size:24px;margin:0 0 6px}.es-ia-cab p{color:var(--muted);margin:0 0 12px}
+.es-ia-form{max-width:860px}.es-ia-form textarea{width:100%;box-sizing:border-box;font:inherit;font-size:15.5px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);resize:vertical}
+.es-ia-sug{font:inherit;font-size:13.5px;margin:0 8px 8px 0;padding:6px 12px;border:1px dashed var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}.es-ia-sug:hover{border-color:var(--accent);color:var(--ink)}
+.es-ia-resp{max-width:860px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 18px;background:var(--surface)}.es-ia-resp p{margin:0 0 8px;font-size:15.5px;line-height:1.5}
+.es-ia-q{color:var(--muted);font-style:italic}.es-ia-citas span{display:inline-block;margin:0 6px 4px 0;padding:2px 9px;border-radius:999px;background:rgba(91,192,255,.14);font-size:13px}
+.es-ex-aviso{font-size:13.5px;color:var(--muted)}.es-ex-aviso summary{cursor:pointer;color:var(--ink)}
+.es-ex-reloj{position:sticky;top:44px;z-index:4;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding:10px 16px;margin:0 0 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.es-ex-reloj b{font-family:var(--mono);font-size:28px;color:var(--accent-2)}.es-ex-reloj b.poco{color:#F87171}
+.es-ex-reloj span{font-size:13.5px;color:var(--muted)}
+.es-ex-q{margin:0 0 12px}
+.es-ex-res{display:flex;gap:20px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--surface);max-width:720px}
+.es-ex-nota{font-family:var(--display);font-weight:600;font-size:72px;line-height:1;color:#E5B94E}
+.es-ex-res b{font-family:var(--display);font-size:20px}.es-ex-res p{margin:4px 0}
+
 .ig{--ig-bg:rgba(255,255,255,.03)}
 .ig-hero{display:grid;gap:14px;padding:22px 22px 18px;border:1px solid var(--line);border-radius:14px;margin:0 0 18px;
   background:radial-gradient(120% 140% at 0% 0%,rgba(91,192,255,.16),transparent 55%),radial-gradient(120% 140% at 100% 100%,rgba(229,185,78,.14),transparent 55%),var(--surface)}
@@ -410,6 +434,10 @@ body.app:not(.con-acceso) .nav{display:none}
 body.app:not(.con-acceso) .menu a:not([href="#inicio"]):not([href="#ingreso"]){display:none}
 body.app:not(.es-admin) section#admin>*:not(.sec-t):not(.bloqueo-admin){display:none}
 .bloqueo-admin{display:none} body.app:not(.es-admin) .bloqueo-admin{display:block}
+.ex-resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:0 0 14px;max-width:760px}
+.ex-resumen div{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface)}
+.ex-resumen b{display:block;font-family:var(--display);font-size:28px;color:#E5B94E}.ex-resumen span{font-size:13px;color:var(--muted)}
+.ex-mejor{font-weight:600;color:#E5B94E}.ex-faltan{columns:2 280px;font-size:14px;color:var(--muted)}
 body.app:not(.es-admin) .nav a[data-sec="admin"],body.app:not(.es-admin) .menu a[href="#admin"]{display:none}
 .bloqueo-admin{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent-2);border-radius:10px;padding:18px 20px;max-width:640px}
 .bloqueo-admin b{font-family:var(--display);font-size:20px;display:block;margin-bottom:6px}
@@ -775,6 +803,14 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   <div id="res-codigo"></div>
   <div class="tabla"><table class="tabla-us tabla-act"><thead><tr><th>Código</th><th>Usuario</th><th>Aviso aceptado</th><th>Último evento</th><th>Eventos</th><th>Secciones vistas</th><th>Copias 24 h</th><th>Descargas 24 h</th><th>Impresiones</th><th>Alerta</th></tr></thead>
     <tbody id="lista-actividad"><tr><td colspan="10" class="vacio">Cargando actividad…</td></tr></tbody></table></div>
+  <h3 class="bloque-t" style="margin-top:36px">Prueba formal de conocimientos · revista IG <span id="ex-n" class="fte" style="font-size:14px"></span></h3>
+  <p class="fte" style="max-width:760px">Resultados de la prueba obligatoria de la página de estudio (15 preguntas al azar, 30 minutos, dos intentos). La nota se calcula en el servidor. Los intentos que vencen sin entregarse se califican con lo que alcanzó a guardarse.</p>
+  <div id="ex-resumen" class="ex-resumen"></div>
+  <div class="filtros-us"><input id="ex-f" type="search" placeholder="Buscar por grado, nombre o dependencia" aria-label="Buscar en la prueba">
+    <button class="btn-s" type="button" id="ex-csv">Descargar Excel (CSV)</button><button class="btn-s" type="button" id="ex-recargar">Actualizar</button></div>
+  <div class="tabla"><table class="tabla-us"><thead><tr><th>Grado y nombre</th><th>Dependencia</th><th>Intento 1</th><th>Intento 2</th><th>Mejor nota</th></tr></thead>
+    <tbody id="ex-lista"><tr><td colspan="5" class="vacio">Cargando resultados…</td></tr></tbody></table></div>
+  <div id="ex-faltan"></div>
   <div class="caja" style="margin-top:28px;max-width:640px"><h3>Contenido del portal</h3>
     <p class="fte" id="c-version" style="margin:0 0 12px">Sin cargar.</p>
     <button class="btn-s" type="button" id="b-cargar">Cargar contenido generado</button>
@@ -1086,15 +1122,157 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   }
   function contarFallas(){var s=leer(), n=Object.keys(s.fallas||{}).length; var x=document.getElementById('es-n-fallas'); if(x) x.textContent=n?String(n):''}
   function ir(m){
-    modo=m; if(timer){clearInterval(timer);timer=null}
+    if(EX&&m!=='prueba') m='prueba'; modo=m; if(timer){clearInterval(timer);timer=null} if(exTimer){clearInterval(exTimer);exTimer=null}
     [].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){bt.setAttribute('aria-selected',bt.dataset.es===m?'true':'false')});
     P.textContent='';
-    ({infografia:infografia,guia:guia,practica:practica,simulacro:simulacro,fallas:fallas,glosario:glosario,revista:revista})[m]();
+    ({infografia:infografia,prueba:prueba,ia:ia,guia:guia,practica:practica,simulacro:simulacro,fallas:fallas,glosario:glosario,revista:revista})[m]();
   }
   function pagTxt(doc,p){return (docs[doc]?docs[doc].corto:doc)+', p. '+p}
 
   /* ---------- infografía ---------- */
   function infografia(){var t=document.getElementById('es-infografia'); if(t) P.append(t.content.cloneNode(true))}
+
+
+  /* ---------- agente de IA (agente-inspeccion) ---------- */
+  var IAKEY='portal-agente-ig-v1';
+  function iaDispositivo(){var v=null; try{v=localStorage.getItem(IAKEY)}catch(_){}
+    if(!v){v='d-'+Array.from(crypto.getRandomValues(new Uint8Array(12))).map(function(x){return x.toString(16).padStart(2,'0')}).join(''); try{localStorage.setItem(IAKEY,v)}catch(_){}} return v}
+  function ia(){
+    P.append(el('div',{class:'es-ia-cab'},[el('h3',{text:'Pregunte a la IA sobre los documentos de la revista'}),
+      el('p',{text:'Responde solo con los cinco documentos de estudio y cita la página de cada dato. Puede equivocarse: confirme en la página citada. No reemplaza la lectura de los documentos.'})]));
+    var t=el('textarea',{id:'ia-p',rows:'3',maxlength:'500',placeholder:'Ej.: ¿Cuáles son los cinco Objetivos Estratégicos de la ESDEG?'});
+    var bt=el('button',{type:'button',class:'es-bt prim',text:'Preguntar'}), m=el('p',{class:'es-ex-msj'}); m.hidden=true;
+    var res=el('div',{id:'ia-res'});
+    P.append(el('div',{class:'es-ia-form'},[t,el('p',null,bt),m]),res);
+    ['¿Cuáles son los cuatro objetivos estratégicos del PEI del CGFM?','¿Qué evalúa la inspección en la Vicedirección de Investigación?','¿Cuáles son las cinco líneas estratégicas de la política de educación?'].forEach(function(x){
+      var c=el('button',{type:'button',class:'es-ia-sug',text:x}); c.addEventListener('click',function(){t.value=x; t.focus()}); res.append(c)});
+    t.addEventListener('keydown',function(ev){if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)) bt.click()});
+    bt.addEventListener('click',async function(){
+      var q=t.value.trim(); m.hidden=true; if(q.length<3){m.textContent='Escriba su pregunta.';m.hidden=false;return}
+      var c=exCfg(); bt.disabled=true; bt.textContent='Buscando en los documentos…';
+      try{
+        var r=await fetch(c.agente,{method:'POST',headers:{'Content-Type':'application/json',apikey:c.llave},body:JSON.stringify({pregunta:q,dispositivo:iaDispositivo()})});
+        var j={}; try{j=await r.json()}catch(_){}
+        if(!r.ok||j.error) throw new Error(j.error||'No se pudo comunicar con el asistente.');
+        res.textContent='';
+        var caja=el('div',{class:'es-ia-resp'},[el('p',{class:'es-ia-q',text:q})]);
+        j.respuesta.split('\n').forEach(function(l){if(l.trim()) caja.append(el('p',{text:l}))});
+        var vistas={}, cs=(j.citas||[]).filter(function(x){var k=x.corto+x.pag; if(vistas[k]) return false; vistas[k]=1; return true});
+        if(cs.length) caja.append(el('p',{class:'es-ia-citas'},['Páginas citadas: '].concat(cs.map(function(x){return el('span',{text:x.corto+', p. '+x.pag})}))));
+        caja.append(el('p',{class:'fte',text:'Le quedan '+j.restantes+' preguntas hoy en este navegador.'}));
+        res.append(caja);
+      }catch(e){m.textContent=e.message; m.hidden=false}
+      bt.disabled=false; bt.textContent='Preguntar';
+    });
+  }
+
+  /* ---------- prueba formal (examen-inspeccion) ---------- */
+  var EKEY='portal-examen-ig-v1', exTimer=null, exGuardar=null, EX=null;
+  function exLeer(){try{return JSON.parse(localStorage.getItem(EKEY))||null}catch(_){return null}}
+  function exPoner(v){try{v?localStorage.setItem(EKEY,JSON.stringify(v)):localStorage.removeItem(EKEY)}catch(_){}}
+  function exCfg(){try{return JSON.parse(document.getElementById('examen-cfg').textContent)}catch(_){return null}}
+  async function exLlamar(cuerpo){
+    var c=exCfg(); if(!c) throw new Error('La prueba no está disponible.');
+    var r=await fetch(c.url,{method:'POST',headers:{'Content-Type':'application/json',apikey:c.llave},body:JSON.stringify(cuerpo)});
+    var j={}; try{j=await r.json()}catch(_){}
+    if(!r.ok||j.error){var e=new Error(j.error||'No se pudo comunicar con el servidor. Revise su conexión.'); e.datos=j; throw e}
+    return j;
+  }
+  function bloquearPestanas(si){[].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){if(bt.dataset.es!=='prueba') bt.disabled=si})}
+  function prueba(){
+    var g=exLeer();
+    if(g&&g.intento){P.append(el('p',{class:'vacio',text:'Recuperando su prueba…'}));
+      exLlamar({accion:'retomar',intento:g.intento,token:g.token}).then(function(j){P.textContent=''; if(j.cerrado){exPoner(null); exResultado(j)} else exConfirmar(j,g.token)})
+        .catch(function(){exPoner(null); P.textContent=''; exFormulario()}); return}
+    exFormulario();
+  }
+  function exConfirmar(j,token){
+    var si=el('button',{type:'button',class:'es-bt prim',text:'Sí, continuar mi prueba'}), no=el('button',{type:'button',class:'es-bt',text:'No soy yo'});
+    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Hay una prueba en curso en este navegador'}),
+      el('p',{text:'Intento '+j.numero+' de '+j.intentos+' de '+(j.persona||'otra persona')+'. ¿Es usted?'}),el('p',null,[si,' ',no])]));
+    si.addEventListener('click',function(){P.textContent=''; exPreguntas(j,token)});
+    no.addEventListener('click',function(){exPoner(null); P.textContent=''; exFormulario('El intento anterior quedó sin abrir en este navegador y se calificará solo al vencer su tiempo.')});
+  }
+  function exFormulario(msj){
+    var c=exCfg()||{grados:[]};
+    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Prueba formal de conocimientos'}),
+      el('ul',{class:'es-lista'},[el('li',{text:'Obligatoria para el personal de la ESDEG.'}),
+        el('li',{text:'15 preguntas escogidas al azar entre las 220 del banco de estudio.'}),
+        el('li',{text:'30 minutos desde que inicia. Al terminar el tiempo se entrega sola con lo que haya respondido.'}),
+        el('li',{text:'Dos intentos por persona. Nota de 0 a 5 (aciertos × 5 ÷ 15).'}),
+        el('li',{text:'Mientras la presenta, las demás pestañas del estudio quedan bloqueadas. Preséntela sin ayuda.'})])]));
+    var sel=el('select',{id:'ex-grado',required:'required'},[el('option',{value:'',text:'Seleccione su grado'})]);
+    c.grados.forEach(function(x){sel.append(el('option',{value:x,text:x}))});
+    var nom=el('input',{id:'ex-nombre',type:'text',maxlength:'80',autocomplete:'name',placeholder:'Nombres y apellidos completos'});
+    var dep=el('input',{id:'ex-dep',type:'text',maxlength:'80',placeholder:'Dependencia o área de la ESDEG'});
+    var ok=el('input',{id:'ex-ok',type:'checkbox'}), au=el('input',{id:'ex-au',type:'checkbox'});
+    var m=el('p',{class:'es-ex-msj',text:msj||''}); m.hidden=!msj;
+    var bt=el('button',{type:'button',class:'es-bt prim',text:'Iniciar la prueba'});
+    var f=el('div',{class:'es-ex-form'},[
+      el('label',null,['Grado',sel]),el('label',null,['Nombre completo',nom]),el('label',null,['Dependencia',dep]),
+      el('label',{class:'es-ex-ok'},[ok,el('span',{text:'Declaro que mis datos son verdaderos y que presento la prueba personalmente y sin ayuda.'})]),
+      el('label',{class:'es-ex-ok'},[au,el('span',{text:'Conozco el aviso de tratamiento de datos y autorizo el registro de mi grado, nombre, dependencia y resultado.'})]),
+      el('details',{class:'es-ex-aviso'},[el('summary',{text:'Aviso de tratamiento de datos personales (Ley 1581 de 2012)'}),
+        el('p',{text:'Responsable: Centro de Doctrina Conjunta (CEDCO) de la Escuela Superior de Guerra, coordinacionescedco@esdeg.edu.co. Datos: grado, nombre, dependencia, respuestas, nota, fecha y hora de inicio y entrega, y una huella cifrada de la dirección de red desde la que se presenta (no se guarda la dirección). Finalidad: registrar y controlar la prueba de conocimientos de la revista de la Inspección General a la ESDEG de noviembre de 2026. Solo la administración del portal consulta los resultados; la página no los muestra a nadie más. Los datos se guardan en servidores de Supabase en Estados Unidos. Plazo: se conservan mientras dure el control de la revista y luego se eliminan. Usted puede conocer, actualizar, rectificar o pedir la supresión de sus datos escribiendo al correo del responsable.'})]),
+      m,el('p',null,bt)]);
+    P.append(f);
+    bt.addEventListener('click',async function(){
+      m.hidden=true;
+      if(!sel.value||nom.value.trim().split(/\s+/).length<2||dep.value.trim().length<2){m.textContent='Complete grado, nombre y apellidos y dependencia.';m.hidden=false;return}
+      if(!ok.checked||!au.checked){m.textContent='Marque la declaración y la autorización para iniciar.';m.hidden=false;return}
+      bt.disabled=true; bt.textContent='Iniciando…';
+      try{var j=await exLlamar({accion:'iniciar',grado:sel.value,nombre:nom.value,dependencia:dep.value});
+        exPoner({intento:j.intento,token:j.token}); P.textContent=''; exPreguntas(j,j.token)}
+      catch(e){bt.disabled=false; bt.textContent='Iniciar la prueba'; m.textContent=e.message; m.hidden=false}
+    });
+  }
+  function exPreguntas(j,token){
+    EX={intento:j.intento,token:token,limite:Date.parse(j.limite),resp:j.respuestas||{},ids:j.preguntas.map(function(q){return q.id}),enviando:false};
+    bloquearPestanas(true);
+    var reloj=el('div',{class:'es-ex-reloj'},[el('b',{id:'ex-reloj',text:'30:00'}),el('span',{text:'Intento '+j.numero+' de '+j.intentos}),el('span',{id:'ex-cont'})]);
+    P.append(reloj);
+    j.preguntas.forEach(function(q,n){
+      var ops=el('div',{class:'es-ops'});
+      q.opciones.forEach(function(o,k){
+        var b=el('button',{type:'button',class:'es-op'+(EX.resp[q.id]===k?' marcada':'')},[el('i',{text:'ABCD'[k]}),el('span',{text:o})]);
+        b.addEventListener('click',function(){EX.resp[q.id]=k; [].forEach.call(ops.children,function(x,i){x.classList.toggle('marcada',i===k)}); exContar(); exProgramarGuardado()});
+        ops.append(b);
+      });
+      P.append(el('div',{class:'es-tarjeta es-ex-q'},[el('div',{class:'es-meta'},[el('b',{text:'Pregunta '+(n+1)+' de '+j.preguntas.length}),el('span',{text:q.doc})]),el('p',{class:'es-enun',text:q.enunciado}),ops]));
+    });
+    var m=el('p',{class:'es-ex-msj',id:'ex-msj'}); m.hidden=true;
+    var bt=el('button',{type:'button',class:'es-bt prim',id:'ex-entregar',text:'Entregar la prueba'});
+    bt.addEventListener('click',function(){var f=EX.ids.filter(function(id){return EX.resp[id]===undefined}).length;
+      if(f&&!confirm('Tiene '+f+' pregunta(s) sin responder. ¿Entrega de todos modos?')) return; exEntregar()});
+    P.append(m,el('p',null,bt));
+    exContar(); exTic(); if(exTimer) clearInterval(exTimer); exTimer=setInterval(exTic,1000);
+  }
+  function exContar(){var x=document.getElementById('ex-cont'); if(x&&EX) x.textContent=Object.keys(EX.resp).length+' de '+EX.ids.length+' respondidas'}
+  function exTic(){
+    if(!EX) return; var ms=EX.limite-Date.now(), r=document.getElementById('ex-reloj');
+    if(ms<=0){if(r) r.textContent='00:00'; clearInterval(exTimer); exTimer=null; exEntregar(); return}
+    var s=Math.ceil(ms/1000); if(r){r.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); r.classList.toggle('poco',s<=300)}
+  }
+  function exProgramarGuardado(){if(exGuardar) clearTimeout(exGuardar); exGuardar=setTimeout(function(){if(EX&&!EX.enviando) exLlamar({accion:'guardar',intento:EX.intento,token:EX.token,respuestas:EX.resp}).catch(function(){})},800)}
+  async function exEntregar(){
+    if(!EX||EX.enviando) return; EX.enviando=true; if(exGuardar) clearTimeout(exGuardar);
+    var bt=document.getElementById('ex-entregar'), m=document.getElementById('ex-msj'); if(bt){bt.disabled=true; bt.textContent='Entregando…'}
+    for(var k=0;k<4;k++){
+      try{var j=await exLlamar({accion:'entregar',intento:EX.intento,token:EX.token,respuestas:EX.resp});
+        if(exTimer){clearInterval(exTimer);exTimer=null} EX=null; exPoner(null); bloquearPestanas(false); P.textContent=''; exResultado(j); window.scrollTo(0,document.getElementById('estudio').offsetTop); return}
+      catch(e){if(m){m.textContent='No se pudo entregar ('+e.message+'). Reintentando…'; m.hidden=false} await new Promise(function(r){setTimeout(r,3000)})}
+    }
+    EX.enviando=false; if(bt){bt.disabled=false; bt.textContent='Entregar la prueba'}
+    if(m) m.textContent='No se pudo entregar. Revise su conexión y pulse «Entregar la prueba» de nuevo. Sus respuestas guardadas se califican al vencer el tiempo.';
+  }
+  function exResultado(j){
+    var est=j.estado==='vencido'?'Se entregó al vencer el tiempo.':'Prueba entregada.';
+    P.append(el('div',{class:'es-ex-res'},[el('span',{class:'es-ex-nota',text:(j.nota==null?'—':Number(j.nota).toFixed(1))}),
+      el('div',null,[el('b',{text:'Nota de 0 a 5'}),el('p',{text:est+' Acertó '+(j.aciertos==null?'—':j.aciertos)+' de '+(j.total||15)+'. Intento '+j.numero+' de 2.'}),
+        el('p',{class:'fte',text:j.numero<2?'Le queda un intento. Repase la guía y practique antes de usarlo.':'Ya usó sus dos intentos. La administración del portal registró su resultado.'})])]));
+    var bt=el('button',{type:'button',class:'es-bt',text:'Volver al inicio de la prueba'}); bt.addEventListener('click',function(){P.textContent=''; exFormulario()});
+    P.append(el('p',null,bt));
+  }
 
   /* ---------- guía ---------- */
   function guia(){
@@ -1413,7 +1591,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     $('c-estado').textContent=est;
     msj('m-cuenta',perfil.rol==='pendiente'?'Su solicitud está pendiente. Un administrador del CEDCO la revisará; cuando la apruebe tendrá acceso a todo el portal.':'');
     if(conAcceso(perfil)) cargarContenido();
-    if(perfil.rol==='administrador'){cargarSolicitudes(); cargarUsuarios();}
+    if(perfil.rol==='administrador'){cargarSolicitudes(); cargarUsuarios(); cargarExamen();}
   }
 
   /* el contenido llega de la base de datos solo para cuentas aprobadas (regla es_lector) */
@@ -1486,6 +1664,53 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   $('b-salir').addEventListener('click',async function(){
     await evento('salida'); await sb.auth.signOut();
     location.replace(location.pathname);  /* recarga limpia: el contenido descargado no queda en la página */
+  });
+
+  /* ---- prueba formal de conocimientos (examen-inspeccion) ---- */
+  var EXF=[], EXP=[];
+  function exFecha(t){if(!t) return ''; var d=new Date(t); return d.toLocaleDateString('es-CO',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-CO',{hour:'2-digit',minute:'2-digit'})}
+  function exNorm(t){return String(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
+  async function cargarExamen(){
+    await sb.rpc('examen_cerrar_vencidos');
+    var r=await sb.from('examen_intentos').select('clave,grado,nombre,dependencia,numero,iniciado,entregado,aciertos,nota,estado').order('iniciado');
+    var pe=await sb.from('examen_personal').select('clave,grado,nombre,dependencia').order('nombre');
+    if(r.error){$('ex-lista').innerHTML='<tr><td colspan="5" class="vacio">No se pudieron leer los resultados.</td></tr>';return}
+    var por={}; (r.data||[]).forEach(function(x){var p=por[x.clave]||(por[x.clave]={clave:x.clave,grado:x.grado,nombre:x.nombre,dependencia:x.dependencia,i:[]}); p.i[x.numero-1]=x; p.dependencia=x.dependencia});
+    EXF=Object.keys(por).map(function(k){var p=por[k], ns=p.i.filter(Boolean).map(function(x){return x.nota}).filter(function(n){return n!=null}); p.mejor=ns.length?Math.max.apply(null,ns.map(Number)):null; return p})
+      .sort(function(a,b){return a.nombre.localeCompare(b.nombre,'es')});
+    EXP=pe.data||[]; pintarExamen();
+  }
+  function exCelda(x){if(!x) return '—'; if(x.estado==='en_curso') return 'En curso desde '+exFecha(x.iniciado);
+    return Number(x.nota).toFixed(1)+' ('+x.aciertos+'/15)'+(x.estado==='vencido'?' · venció':'')+' · '+exFecha(x.entregado||x.iniciado)}
+  function pintarExamen(){
+    var f=exNorm($('ex-f').value), tb=$('ex-lista'); tb.innerHTML='';
+    var filas=EXF.filter(function(p){return !f||exNorm(p.grado+' '+p.nombre+' '+p.dependencia).indexOf(f)>=0});
+    filas.forEach(function(p){var tr=document.createElement('tr');
+      [p.grado+' '+p.nombre,p.dependencia,exCelda(p.i[0]),exCelda(p.i[1]),p.mejor==null?'—':p.mejor.toFixed(1)].forEach(function(v,k){var td=document.createElement('td'); td.textContent=v; if(k===4) td.className='ex-mejor'; tr.append(td)});
+      tb.append(tr)});
+    if(!filas.length) tb.innerHTML='<tr><td colspan="5" class="vacio">'+(EXF.length?'Sin coincidencias.':'Nadie ha presentado la prueba todavía.')+'</td></tr>';
+    var notas=EXF.map(function(p){return p.mejor}).filter(function(n){return n!=null});
+    var prom=notas.length?(notas.reduce(function(a,b){return a+b},0)/notas.length).toFixed(2):'—';
+    var hechos={}; EXF.forEach(function(p){hechos[p.clave]=1});
+    var faltan=EXP.filter(function(x){return !hechos[x.clave]});
+    $('ex-n').textContent='· '+EXF.length+' persona(s)';
+    $('ex-resumen').innerHTML='';
+    [[EXF.length,'presentaron'],[prom,'promedio de la mejor nota'],[EXP.length?faltan.length+' de '+EXP.length:'sin listado','faltan por presentar']].forEach(function(c){
+      var d=document.createElement('div'); var b=document.createElement('b'); b.textContent=c[0]; var sp=document.createElement('span'); sp.textContent=c[1]; d.append(b,sp); $('ex-resumen').append(d)});
+    var fz=$('ex-faltan'); fz.innerHTML='';
+    if(EXP.length&&faltan.length){var h=document.createElement('h4'); h.textContent='Personal que no ha presentado la prueba ('+faltan.length+')'; var ul=document.createElement('ul'); ul.className='ex-faltan';
+      faltan.forEach(function(x){var li=document.createElement('li'); li.textContent=(x.grado+' '+x.nombre).trim()+(x.dependencia?' · '+x.dependencia:''); ul.append(li)}); fz.append(h,ul)}
+  }
+  $('ex-f').addEventListener('input',pintarExamen);
+  $('ex-recargar').addEventListener('click',cargarExamen);
+  $('ex-csv').addEventListener('click',function(){
+    var q=function(v){v=String(v==null?'':v); if(/^[=+\-@\t\r]/.test(v)) v="'"+v; return /[";\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
+    var l=[['Grado','Nombre','Dependencia','Nota intento 1','Aciertos 1','Entrega 1','Nota intento 2','Aciertos 2','Entrega 2','Mejor nota'].join(';')];
+    EXF.forEach(function(p){var a=p.i[0]||{}, b=p.i[1]||{}; l.push([p.grado,p.nombre,p.dependencia,a.nota,a.aciertos,exFecha(a.entregado),b.nota,b.aciertos,exFecha(b.entregado),p.mejor].map(q).join(';'))});
+    var hechos={}; EXF.forEach(function(p){hechos[p.clave]=1});
+    EXP.filter(function(x){return !hechos[x.clave]}).forEach(function(x){l.push([x.grado,x.nombre,x.dependencia,'NO PRESENTÓ','','','','','',''].map(q).join(';'))});
+    var blob=new Blob(['﻿'+l.join('\r\n')],{type:'text/csv;charset=utf-8'}); var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='prueba-conocimientos-revista-ig.csv'; a.click(); setTimeout(function(){URL.revokeObjectURL(a.href)},2000);
   });
 
   async function cargarSolicitudes(){
