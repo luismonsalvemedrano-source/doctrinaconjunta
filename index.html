@@ -261,6 +261,66 @@ footer p{margin:0}
 .sv-nota{display:block;margin-top:10px;font:400 13px Roboto,sans-serif;color:#8FA6D6}
 @media (max-width:720px){.sv-env{grid-template-columns:1fr;justify-items:center;text-align:center;gap:18px}.sv-tx p{margin-left:auto;margin-right:auto}}
 
+#estudio .es-cab{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;margin:0 0 18px}
+@media (max-width:720px){#estudio .es-cab{grid-template-columns:1fr}}
+.es-cuenta{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:18px 20px;border:1px solid rgba(245,196,81,.45);border-radius:10px;background:rgba(245,196,81,.08)}
+.es-cuenta-n{font-family:var(--display);font-weight:600;font-size:38px;line-height:1;color:var(--accent-2)}
+.es-cuenta-t{font-size:13.5px;color:var(--muted)}
+.es-temario{padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14.5px}
+.es-temario b{font-family:var(--display);font-weight:600;font-size:17px;display:block;margin:0 0 4px}
+.es-temario p{margin:0 0 10px;color:var(--muted)}
+.es-temario ul{margin:0;padding-left:18px;color:var(--muted)}.es-temario li b{display:inline;font-size:15px;color:var(--ink);margin-right:4px}
+.es-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.es-nav button,.es-bt{font:inherit;font-size:14.5px;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);cursor:pointer}
+.es-nav button[aria-selected="true"]{border-color:var(--accent);background:rgba(91,192,255,.14)}
+.es-nav button:hover,.es-bt:hover{border-color:var(--accent)}
+.es-bt.prim{background:var(--accent);border-color:var(--accent);color:#04101F;font-weight:600}
+.es-bt[disabled]{opacity:.45;cursor:default}
+#es-n-fallas:not(:empty){display:inline-block;min-width:20px;margin-left:4px;padding:0 6px;border-radius:10px;background:#E5484D;color:#fff;font-size:12px}
+.es-panel{min-height:240px}
+.es-filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+.es-filtros select,.es-filtros input{font:inherit;font-size:14.5px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);min-width:0;max-width:100%}
+.es-doc{border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:0 0 12px}
+.es-doc>summary{cursor:pointer;padding:14px 18px;font-family:var(--display);font-weight:600;font-size:20px;list-style:none}
+.es-doc>summary::-webkit-details-marker{display:none}
+.es-doc>summary span{font-family:var(--body);font-weight:400;font-size:13.5px;color:var(--muted);margin-left:8px}
+.es-doc .es-cuerpo{padding:0 18px 14px}
+.es-tema{border-top:1px solid var(--line);padding:12px 0}
+.es-tema h4{font-family:var(--display);font-weight:600;font-size:17.5px;margin:0 0 6px;color:var(--accent)}
+.es-tema ul{margin:0;padding-left:20px}.es-tema li{margin:0 0 6px;font-size:14.5px}
+.es-pag{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.es-tarjeta{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:18px 20px;max-width:860px}
+.es-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--muted);margin:0 0 8px}
+.es-meta b{color:var(--accent-2);font-weight:500}
+.es-enun{font-size:18px;line-height:1.45;margin:0 0 14px}
+.es-ops{display:flex;flex-direction:column;gap:8px;margin:0 0 12px}
+.es-op{display:flex;gap:10px;align-items:flex-start;text-align:left;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);color:var(--ink);cursor:pointer}
+.es-op:hover:not([disabled]){border-color:var(--accent)}
+.es-op i{font-style:normal;font-family:var(--mono);font-size:13px;color:var(--muted);min-width:18px;padding-top:2px}
+.es-op[disabled]{cursor:default}
+.es-op.ok{border-color:#3FB27F;background:rgba(63,178,127,.14)}
+.es-op.mal{border-color:#E5484D;background:rgba(229,72,77,.14)}
+.es-op.marcada{border-color:var(--accent);background:rgba(91,192,255,.12)}
+.es-retro{border-left:3px solid var(--accent);padding:8px 12px;margin:0 0 12px;font-size:14.5px;background:rgba(91,192,255,.06)}
+.es-retro.ok{border-color:#3FB27F}.es-retro.mal{border-color:#E5484D}
+.es-retro q{display:block;margin-top:6px;color:var(--muted);font-style:italic}
+.es-pie{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.es-marcador{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.es-barra{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:0 0 12px}
+.es-barra span{display:block;height:100%;background:var(--accent)}
+.es-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:0 0 16px}
+.es-res div{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--surface)}
+.es-res b{display:block;font-family:var(--display);font-weight:600;font-size:28px}
+.es-res span{font-size:13px;color:var(--muted)}
+.es-rev{border-top:1px solid var(--line);padding:10px 0;font-size:14.5px}
+.es-rev .r-ok{color:#3FB27F}.es-rev .r-mal{color:#E5484D}
+.es-glo{display:grid;grid-template-columns:minmax(120px,240px) minmax(0,1fr);gap:4px 16px;font-size:14.5px}
+@media (max-width:620px){.es-glo{grid-template-columns:1fr}.es-glo dd{margin-bottom:10px}}
+.es-glo dt{font-weight:500;color:var(--ink)}.es-glo dd{margin:0;color:var(--muted)}
+.es-lista{margin:0;padding-left:20px}.es-lista li{margin:0 0 6px;font-size:14.5px}
+.es-crono{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;font-size:14.5px;margin:0 0 14px}
+.es-crono dt{font-family:var(--mono);font-size:13px;color:var(--accent-2)}.es-crono dd{margin:0}
+
 .bq-btn{position:fixed;top:12px;right:14px;z-index:9500;width:44px;height:44px;border-radius:50%;border:1px solid #4A6AA8;background:rgba(5,10,30,.92);color:#EAF3FF;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .bq-btn:hover,.bq-btn:focus-visible{border-color:#22D3EE;color:#22D3EE;outline:none}
 .bq-btn svg{width:21px;height:21px}
@@ -549,15 +609,17 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 
 <div class="menu" id="menu" hidden><div class="panel" role="dialog" aria-label="Menú del portal">
   <button class="bt cerrar" id="b-cerrar" type="button">Cerrar</button>
-  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">Observatorio VIGÍA</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener">Proyectos de investigación</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
+  <ul><li><a href="#inicio">Inicio</a></li><li><a href="#novedades">Novedades</a></li><li><a href="#biblioteca">Biblioteca</a></li><li><a href="#produccion">En producción</a></li><li><a href="#vigia">Observatorio VIGÍA</a></li><li><a href="#estudio">Estudio inspección</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener">Proyectos de investigación</a></li><li><a href="#ingreso">Ingreso</a></li><li><a href="#admin">Administración</a></li></ul>
   <p class="fte">Centro de Doctrina Conjunta (CEDCO) · Escuela Superior de Guerra</p>
 </div></div>
 
-<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">Observatorio VIGÍA</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener" role="tab">Proyectos de investigación</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
+<nav class="nav" aria-label="Secciones del portal"><div class="env"><ul role="tablist"><li><a href="#inicio" role="tab" data-sec="inicio">Inicio</a></li><li><a href="#novedades" role="tab" data-sec="novedades">Novedades</a></li><li><a href="#biblioteca" role="tab" data-sec="biblioteca">Biblioteca</a></li><li><a href="#produccion" role="tab" data-sec="produccion">En producción</a></li><li><a href="#vigia" role="tab" data-sec="vigia">Observatorio VIGÍA</a></li><li><a href="#estudio" role="tab" data-sec="estudio">Estudio inspección</a></li><li><a href="https://app.powerbi.com/view?r=eyJrIjoiYjg4ZTY5ODEtNGM2Mi00NzZiLWFiOTMtMzI1MTExNGVmNWRkIiwidCI6IjhlYjAwOTFmLWJkNDgtNDhlNC04OTE2LTE0Yjk0NjkzYmQxMyIsImMiOjR9" target="_blank" rel="noopener" role="tab">Proyectos de investigación</a></li><li><a href="#ingreso" role="tab" data-sec="ingreso">Ingreso</a></li><li><a href="#admin" role="tab" data-sec="admin">Administración</a></li></ul></div></nav>
 
 <main class="env">
 
 <section id="inicio"></section>
+
+
 
 
 
@@ -693,7 +755,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
 <footer><div class="env">
   <div><b>Manejo de la información</b><p>Este portal publica solo información de fuente abierta y de uso institucional. El material clasificado, las lecciones aprendidas y los informes locales del observatorio no se cargan aquí.</p></div>
   <div><b>Acceso</b><p>El contenido del portal es solo para cuentas aprobadas. Cada ingreso y cada aprobación quedan registrados.</p></div>
-  <div><b>Actualización</b><p>Página generada el 3 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
+  <div><b>Actualización</b><p>Página generada el 19 nov. 2026 desde las fuentes del CEDCO. VIGÍA se actualiza tres veces al día: 6:00 a. m., 12:00 m. y 6:00 p. m.</p></div>
 </div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -937,6 +999,219 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
       if(++n<40) setTimeout(abrir,100); else ir('ingreso')})()});
 })();
 </script>
+
+
+<script>
+(function(){
+  'use strict';
+  var KEY='portal-estudio-inspeccion-v1';
+  function leer(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(_){return {}}}
+  function guardar(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(_){}}
+  function el(t,a,h){var x=document.createElement(t); if(a) for(var k in a){if(k==='class') x.className=a[k]; else if(k==='text') x.textContent=a[k]; else x.setAttribute(k,a[k])}
+    if(h) (Array.isArray(h)?h:[h]).forEach(function(c){if(c!=null) x.append(c)}); return x}
+  function mezclar(a){a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t} return a}
+  var D=null, P=null, docs={}, modo='guia', timer=null, reloj=null;
+
+  function iniciar(){
+    var b=document.getElementById('estudio-datos'); if(!b||b.dataset.listo) return; b.dataset.listo='1';
+    try{D=JSON.parse(b.textContent)}catch(_){return}
+    docs={}; D.documentos.forEach(function(x){docs[x.id]=x});
+    P=document.getElementById('es-panel');
+    [].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){bt.addEventListener('click',function(){ir(bt.dataset.es)})});
+    cuenta(); if(reloj) clearInterval(reloj); reloj=setInterval(cuenta,60000);
+    contarFallas(); ir('guia');
+  }
+  function cuenta(){
+    var c=document.getElementById('es-cuenta'); if(!c||!D) return;
+    var ms=new Date(D.examen.fecha)-new Date();
+    if(ms<=0){c.textContent='Hoy'; return}
+    var d=Math.floor(ms/864e5), h=Math.floor(ms%864e5/36e5);
+    c.textContent=d>0?(d+' d '+h+' h'):(h+' h '+Math.floor(ms%36e5/6e4)+' min');
+  }
+  function contarFallas(){var s=leer(), n=Object.keys(s.fallas||{}).length; var x=document.getElementById('es-n-fallas'); if(x) x.textContent=n?String(n):''}
+  function ir(m){
+    modo=m; if(timer){clearInterval(timer);timer=null}
+    [].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){bt.setAttribute('aria-selected',bt.dataset.es===m?'true':'false')});
+    P.textContent='';
+    ({guia:guia,practica:practica,simulacro:simulacro,fallas:fallas,glosario:glosario,revista:revista})[m]();
+  }
+  function pagTxt(doc,p){return (docs[doc]?docs[doc].corto:doc)+', p. '+p}
+
+  /* ---------- guía ---------- */
+  function guia(){
+    P.append(el('p',{class:'fte',text:'Síntesis por documento. La página es la del PDF fuente. Abra cada documento para repasar sus temas.'}));
+    D.documentos.forEach(function(x,i){
+      var n=D.preguntas.filter(function(q){return q.doc===x.id}).length;
+      var det=el('details',{class:'es-doc'}); if(i===0) det.open=true;
+      det.append(el('summary',null,[x.corto+' · '+x.titulo, el('span',{text:x.temas.length+' temas · '+n+' preguntas'})]));
+      var c=el('div',{class:'es-cuerpo'});
+      if(x.nota) c.append(el('p',{class:'fte',text:x.nota}));
+      x.temas.forEach(function(t){
+        var ul=el('ul'); t.puntos.forEach(function(p){ul.append(el('li',null,[p.texto+' ', el('span',{class:'es-pag',text:'p. '+p.pag})]))});
+        c.append(el('div',{class:'es-tema'},[el('h4',{text:t.titulo}),ul]));
+      });
+      var bt=el('button',{type:'button',class:'es-bt prim',text:'Practicar este documento'}); bt.addEventListener('click',function(){ir('practica'); var s=document.getElementById('es-f-doc'); if(s){s.value=x.id; s.dispatchEvent(new Event('change'))}});
+      c.append(el('p',null,bt)); det.append(c); P.append(det);
+    });
+  }
+
+  /* ---------- pregunta (común a práctica y fallas) ---------- */
+  function tarjetaPregunta(q,num,total,alResponder,conRetro){
+    var t=el('div',{class:'es-tarjeta'});
+    t.append(el('div',{class:'es-barra'},el('span',{style:'width:'+Math.round(100*(num-1)/total)+'%'})));
+    t.append(el('div',{class:'es-meta'},[el('span',null,[el('b',{text:'Pregunta '+num+' de '+total})]), el('span',{text:docs[q.doc]?docs[q.doc].corto:q.doc}), el('span',{text:q.tema})]));
+    t.append(el('p',{class:'es-enun',text:q.enunciado}));
+    var ops=el('div',{class:'es-ops'}), orden=mezclar(q.opciones.map(function(_,i){return i})), botones=[];
+    orden.forEach(function(i,k){
+      var b=el('button',{type:'button',class:'es-op'},[el('i',{text:'ABCD'[k]}), el('span',{text:q.opciones[i]})]); b.dataset.i=i; botones.push(b);
+      b.addEventListener('click',function(){
+        var bien=i===q.correcta;
+        if(conRetro){
+          botones.forEach(function(x){x.disabled=true; if(+x.dataset.i===q.correcta) x.classList.add('ok'); else if(x===b) x.classList.add('mal')});
+          var r=el('div',{class:'es-retro '+(bien?'ok':'mal')},[el('b',{text:bien?'Correcto. ':'Incorrecto. '}), document.createTextNode(q.explicacion+' '), el('span',{class:'es-pag',text:'Fuente: '+pagTxt(q.doc,q.pag)})]);
+          if(q.cita) r.append(el('q',{text:q.cita}));
+          ops.after(r);
+        } else {botones.forEach(function(x){x.classList.toggle('marcada',x===b)})}
+        alResponder(bien,i);
+      });
+      ops.append(b);
+    });
+    t.append(ops); return t;
+  }
+  function anotar(q,bien){var s=leer(); s.fallas=s.fallas||{}; s.vistas=s.vistas||{};
+    s.vistas[q.id]=(s.vistas[q.id]||0)+1; if(bien) delete s.fallas[q.id]; else s.fallas[q.id]=1; guardar(s); contarFallas()}
+
+  function sesion(lista,titulo,alTerminar){
+    var i=0, aciertos=0;
+    function una(){
+      P.querySelectorAll('.es-tarjeta,.es-res,.es-fin').forEach(function(x){x.remove()});
+      if(i>=lista.length){
+        var f=el('div',{class:'es-fin'});
+        f.append(el('div',{class:'es-res'},[el('div',null,[el('b',{text:aciertos+' / '+lista.length}),el('span',{text:'aciertos en '+titulo})]),
+          el('div',null,[el('b',{text:Math.round(100*aciertos/Math.max(1,lista.length))+' %'}),el('span',{text:'de efectividad'})])]));
+        var r=el('button',{type:'button',class:'es-bt prim',text:'Otra ronda'}); r.addEventListener('click',alTerminar); f.append(r); P.append(f); return;
+      }
+      var q=lista[i], t;
+      t=tarjetaPregunta(q,i+1,lista.length,function(bien){anotar(q,bien); if(bien) aciertos++; sig.disabled=false; sig.focus()},true);
+      var sig=el('button',{type:'button',class:'es-bt prim',text:i+1<lista.length?'Siguiente':'Ver resultado'}); sig.disabled=true;
+      sig.addEventListener('click',function(){i++; una(); window.scrollTo({top:P.getBoundingClientRect().top+scrollY-90})});
+      t.append(el('div',{class:'es-pie'},[el('span',{class:'es-marcador',text:aciertos+' aciertos'}),sig]));
+      P.append(t);
+    }
+    una();
+  }
+
+  /* ---------- práctica ---------- */
+  function practica(){
+    var fd=el('select',{id:'es-f-doc','aria-label':'Documento'}), ft=el('select',{id:'es-f-tema','aria-label':'Tema'});
+    fd.append(el('option',{value:'',text:'Todos los documentos'})); D.documentos.forEach(function(x){fd.append(el('option',{value:x.id,text:x.corto}))});
+    function temas(){ft.textContent=''; ft.append(el('option',{value:'',text:'Todos los temas'}));
+      var vistos={}; D.preguntas.forEach(function(q){if((!fd.value||q.doc===fd.value)&&!vistos[q.tema]){vistos[q.tema]=1; ft.append(el('option',{value:q.tema,text:q.tema}))}})}
+    var cant=el('select',{'aria-label':'Cantidad'}); [10,20,40,0].forEach(function(n){cant.append(el('option',{value:n,text:n?n+' preguntas':'Todas'}))});
+    var go=el('button',{type:'button',class:'es-bt prim',text:'Empezar'});
+    P.append(el('div',{class:'es-filtros'},[fd,ft,cant,go]));
+    temas(); fd.addEventListener('change',temas);
+    function arrancar(){
+      var l=D.preguntas.filter(function(q){return (!fd.value||q.doc===fd.value)&&(!ft.value||q.tema===ft.value)});
+      l=mezclar(l); if(+cant.value) l=l.slice(0,+cant.value);
+      sesion(l,'práctica',arrancar);
+    }
+    go.addEventListener('click',arrancar);
+    P.append(el('p',{class:'fte',text:'Cada respuesta muestra la explicación, el documento y la página, y la cita literal. Las preguntas que falle quedan en «Mis fallas».'}));
+  }
+
+  /* ---------- fallas ---------- */
+  function fallas(){
+    var s=leer(), ids=Object.keys(s.fallas||{}); var l=D.preguntas.filter(function(q){return ids.indexOf(q.id)>=0});
+    if(!l.length){P.append(el('p',{class:'vacio',text:'No tiene preguntas falladas pendientes. Las que falle en la práctica o el simulacro aparecerán aquí hasta que las responda bien.'})); return}
+    var b=el('button',{type:'button',class:'es-bt prim',text:'Repasar '+l.length+' preguntas falladas'});
+    var z=el('button',{type:'button',class:'es-bt',text:'Borrar mi avance'});
+    b.addEventListener('click',function(){sesion(mezclar(l),'el repaso',fallas)});
+    z.addEventListener('click',function(){if(confirm('¿Borrar el registro de fallas y avance guardado en este navegador?')){guardar({}); contarFallas(); ir('fallas')}});
+    P.append(el('div',{class:'es-filtros'},[b,z]));
+    var ul=el('ul',{class:'es-lista'}); l.forEach(function(q){ul.append(el('li',null,[q.enunciado+' ',el('span',{class:'es-pag',text:pagTxt(q.doc,q.pag)})]))}); P.append(ul);
+  }
+
+  /* ---------- simulacro ---------- */
+  function simulacro(){
+    var S=D.simulacro;
+    P.append(el('div',{class:'caja'},[el('h3',{text:'Simulacro de la evaluación'}),
+      el('p',{class:'fte',text:S.preguntas+' preguntas al azar, repartidas entre los documentos según su peso, con '+S.minutos+' minutos. No hay retroalimentación hasta terminar; al final verá el puntaje por documento y la revisión de cada respuesta. El formato real de la evaluación no se conoce: el simulacro es un ejercicio de preparación.'})]));
+    var go=el('button',{type:'button',class:'es-bt prim',text:'Iniciar simulacro'}); P.append(el('p',null,go));
+    go.addEventListener('click',function(){
+      var l=[]; Object.keys(S.reparto).forEach(function(d){l=l.concat(mezclar(D.preguntas.filter(function(q){return q.doc===d})).slice(0,S.reparto[d]))});
+      l=mezclar(l); correr(l,S.minutos);
+    });
+  }
+  function correr(l,min){
+    P.textContent=''; var resp={}, i=0, fin=Date.now()+min*6e4;
+    var cab=el('div',{class:'es-filtros'}), rel=el('span',{class:'es-marcador'}), ter=el('button',{type:'button',class:'es-bt',text:'Terminar y calificar'});
+    cab.append(rel,ter); P.append(cab); var zona=el('div'); P.append(zona);
+    function tic(){var r=Math.max(0,fin-Date.now()); rel.textContent='Tiempo restante '+Math.floor(r/6e4)+':'+('0'+Math.floor(r%6e4/1e3)).slice(-2)+' · respondidas '+Object.keys(resp).length+' de '+l.length; if(!r) calificar()}
+    timer=setInterval(tic,1000); tic();
+    function una(){
+      zona.textContent=''; var q=l[i];
+      var t=tarjetaPregunta(q,i+1,l.length,function(_,op){resp[q.id]=op; tic()},false);
+      if(resp[q.id]!=null) [].forEach.call(t.querySelectorAll('.es-op'),function(b){if(+b.dataset.i===resp[q.id]) b.classList.add('marcada')});
+      var ant=el('button',{type:'button',class:'es-bt',text:'Anterior'}), sig=el('button',{type:'button',class:'es-bt prim',text:i+1<l.length?'Siguiente':'Terminar y calificar'});
+      ant.disabled=i===0; ant.addEventListener('click',function(){i--; una()});
+      sig.addEventListener('click',function(){if(i+1<l.length){i++; una()} else calificar()});
+      t.append(el('div',{class:'es-pie'},[ant,sig])); zona.append(t);
+    }
+    function calificar(){
+      if(timer){clearInterval(timer);timer=null} P.textContent='';
+      var ok=0, por={}; l.forEach(function(q){var b=resp[q.id]===q.correcta; if(b) ok++; anotar(q,b); por[q.doc]=por[q.doc]||[0,0]; por[q.doc][1]++; if(b) por[q.doc][0]++});
+      var r=el('div',{class:'es-res'}); r.append(el('div',null,[el('b',{text:ok+' / '+l.length}),el('span',{text:Math.round(100*ok/l.length)+' % de aciertos'})]));
+      Object.keys(por).forEach(function(d){r.append(el('div',null,[el('b',{text:por[d][0]+' / '+por[d][1]}),el('span',{text:docs[d]?docs[d].corto:d})]))});
+      P.append(r);
+      var otra=el('button',{type:'button',class:'es-bt prim',text:'Nuevo simulacro'}); otra.addEventListener('click',function(){ir('simulacro')}); P.append(el('p',null,otra));
+      P.append(el('h3',{class:'bloque-t',text:'Revisión'}));
+      l.forEach(function(q,k){var b=resp[q.id]===q.correcta, d=el('div',{class:'es-rev'});
+        d.append(el('p',null,[el('b',{class:b?'r-ok':'r-mal',text:(b?'✓ ':'✗ ')+(k+1)+'. '}),document.createTextNode(q.enunciado)]));
+        if(!b) d.append(el('p',{class:'fte',text:'Su respuesta: '+(resp[q.id]==null?'sin responder':q.opciones[resp[q.id]])}));
+        d.append(el('p',null,[el('b',{text:'Correcta: '}),document.createTextNode(q.opciones[q.correcta]+'. '+q.explicacion+' '),el('span',{class:'es-pag',text:pagTxt(q.doc,q.pag)})]));
+        P.append(d)});
+    }
+    ter.addEventListener('click',function(){if(confirm('¿Terminar y calificar el simulacro?')) calificar()});
+    una();
+  }
+
+  /* ---------- glosario ---------- */
+  function glosario(){
+    var q=el('input',{type:'search',placeholder:'Buscar término o sigla','aria-label':'Buscar en el glosario'});
+    var fd=el('select',{'aria-label':'Documento'}); fd.append(el('option',{value:'',text:'Todos los documentos'})); D.documentos.forEach(function(x){if(x.glosario.length) fd.append(el('option',{value:x.id,text:x.corto}))});
+    var dl=el('dl',{class:'es-glo'}); P.append(el('div',{class:'es-filtros'},[q,fd]),dl);
+    function nrm(s){return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+    function pintar(){dl.textContent=''; var t=nrm(q.value), n=0;
+      D.documentos.forEach(function(x){if(fd.value&&x.id!==fd.value) return; x.glosario.forEach(function(g){
+        if(t&&nrm(g.termino+' '+g.definicion).indexOf(t)<0) return; n++;
+        dl.append(el('dt',{text:g.termino}),el('dd',null,[g.definicion+' ',el('span',{class:'es-pag',text:pagTxt(x.id,g.pag)})]))})});
+      if(!n) dl.append(el('dd',{class:'vacio',text:'Sin resultados.'}))}
+    q.addEventListener('input',pintar); fd.addEventListener('change',pintar); pintar();
+  }
+
+  /* ---------- la revista ---------- */
+  function revista(){
+    var R=D.revista;
+    P.append(el('h3',{class:'bloque-t',text:'Cronograma'}));
+    var dl=el('dl',{class:'es-crono'}); R.cronograma.forEach(function(c){dl.append(el('dt',{text:c[0]}),el('dd',{text:c[1]}))}); P.append(dl);
+    P.append(el('h3',{class:'bloque-t',text:'Aspectos que evaluará la inspección'}));
+    var ol=el('ol',{class:'es-lista'}); R.aspectos.forEach(function(a){ol.append(el('li',{text:a}))}); P.append(ol);
+    if(R.areas&&R.areas.length){P.append(el('h3',{class:'bloque-t',text:'Áreas para inspeccionar'}));
+      var ul=el('ul',{class:'es-lista'}); R.areas.forEach(function(a){ul.append(el('li',null,[el('b',{text:a[0]+': '}),document.createTextNode(a[1])]))}); P.append(ul)}
+    P.append(el('p',{class:'fte',text:R.fuente}));
+  }
+
+  /* se activa cuando la sección existe (en la versión con ingreso llega después del ingreso) */
+  var ir0=window.irSeccion;
+  if(typeof ir0==='function') window.irSeccion=function(id,a){ir0(id,a); if(id==='estudio') iniciar()};
+  window.addEventListener('hashchange',function(){if(location.hash==='#estudio') setTimeout(iniciar,60)});
+  new MutationObserver(function(){if(document.getElementById('estudio-datos')&&!document.getElementById('estudio-datos').dataset.listo&&document.body.dataset.sec==='estudio') iniciar()})
+    .observe(document.body,{childList:true,subtree:true});
+  if(document.body.dataset.sec==='estudio') iniciar();
+})();
+</script>
+
 
 <script id="buscador-js">
 (function(){
