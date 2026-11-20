@@ -336,6 +336,9 @@ footer p{margin:0}
 .es-ia-sug{font:inherit;font-size:13.5px;margin:0 8px 8px 0;padding:6px 12px;border:1px dashed var(--line);border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}.es-ia-sug:hover{border-color:var(--accent);color:var(--ink)}
 .es-ia-resp{max-width:860px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 18px;background:var(--surface)}.es-ia-resp p{margin:0 0 8px;font-size:15.5px;line-height:1.5}
 .es-ia-q{color:var(--muted);font-style:italic}.es-ia-citas span{display:inline-block;margin:0 6px 4px 0;padding:2px 9px;border-radius:999px;background:rgba(91,192,255,.14);font-size:13px}
+.es-ex-corr-t{font-family:var(--display);font-weight:600;font-size:22px;margin:22px 0 4px}
+.es-ex-c.ok{border-left:4px solid #4ADE80}.es-ex-c.mal{border-left:4px solid #F87171}
+.es-ex-suya{color:#F87171;margin:0 0 6px}.es-ex-buena{color:#4ADE80;margin:0 0 6px}
 .es-ex-aviso{font-size:13.5px;color:var(--muted)}.es-ex-aviso summary{cursor:pointer;color:var(--ink)}
 .es-ex-reloj{position:sticky;top:44px;z-index:4;display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;padding:10px 16px;margin:0 0 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 6px 18px rgba(0,0,0,.35)}
 .es-ex-reloj b{font-family:var(--mono);font-size:28px;color:var(--accent-2)}.es-ex-reloj b.poco{color:#F87171}
@@ -1199,7 +1202,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
       el('ul',{class:'es-lista'},[el('li',{text:'Obligatoria para el personal de la ESDEG.'}),
         el('li',{text:'15 preguntas escogidas al azar entre las 220 del banco de estudio.'}),
         el('li',{text:'30 minutos desde que inicia. Al terminar el tiempo se entrega sola con lo que haya respondido.'}),
-        el('li',{text:'Dos intentos por persona. Nota de 0 a 5 (aciertos × 5 ÷ 15).'}),
+        el('li',{text:'Dos intentos por persona. Nota de 0 a 5 (aciertos × 5 ÷ 15). Al entregar cada intento verá la corrección.'}),
         el('li',{text:'Mientras la presenta, las demás pestañas del estudio quedan bloqueadas. Preséntela sin ayuda.'})])]));
     var sel=el('select',{id:'ex-grado',required:'required'},[el('option',{value:'',text:'Seleccione su grado'})]);
     c.grados.forEach(function(x){sel.append(el('option',{value:x,text:x}))});
@@ -1269,9 +1272,27 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     var est=j.estado==='vencido'?'Se entregó al vencer el tiempo.':'Prueba entregada.';
     P.append(el('div',{class:'es-ex-res'},[el('span',{class:'es-ex-nota',text:(j.nota==null?'—':Number(j.nota).toFixed(1))}),
       el('div',null,[el('b',{text:'Nota de 0 a 5'}),el('p',{text:est+' Acertó '+(j.aciertos==null?'—':j.aciertos)+' de '+(j.total||15)+'. Intento '+j.numero+' de 2.'}),
-        el('p',{class:'fte',text:j.numero<2?'Le queda un intento. Repase la guía y practique antes de usarlo.':'Ya usó sus dos intentos. La administración del portal registró su resultado.'})])]));
-    var bt=el('button',{type:'button',class:'es-bt',text:'Volver al inicio de la prueba'}); bt.addEventListener('click',function(){P.textContent=''; exFormulario()});
+        el('p',{class:'fte',text:j.numero<2?'Le queda un intento. Repase la corrección y la guía antes de usarlo.':'Ya usó sus dos intentos. La administración del portal registró su resultado.'})])]));
+    if(j.correccion&&j.correccion.length) exCorreccion(j.correccion);
+    var bt=el('button',{type:'button',class:'es-bt',text:'Volver al inicio del simulacro'}); bt.addEventListener('click',function(){P.textContent=''; exFormulario()});
     P.append(el('p',null,bt));
+  }
+  /* corrección de cada intento (decisión de Luis, 20-nov-2026): las falladas pasan a «Mis fallas» */
+  function exCorreccion(lista){
+    var por={}; D.preguntas.forEach(function(q){por[q.id]=q});
+    var malas=lista.filter(function(c){return c.elegida!==c.correcta}).length;
+    P.append(el('h3',{class:'es-ex-corr-t',text:'Corrección: '+malas+' pregunta(s) por repasar'}));
+    P.append(el('p',{class:'fte',text:'Las preguntas que falló quedaron en «Mis fallas» para repasarlas con la Práctica.'}));
+    lista.forEach(function(c,n){
+      var q=por[c.id]; if(!q||c.correcta==null) return; var bien=c.elegida===c.correcta; anotar(q,bien);
+      var d=el('div',{class:'es-tarjeta es-ex-q es-ex-c '+(bien?'ok':'mal')},[
+        el('div',{class:'es-meta'},[el('b',{text:'Pregunta '+(n+1)+' · '+(bien?'Correcta':'Incorrecta')}),el('span',{text:pagTxt(q.doc,q.pag)})]),
+        el('p',{class:'es-enun',text:q.enunciado})]);
+      if(!bien) d.append(el('p',{class:'es-ex-suya'},[el('b',{text:'Su respuesta: '}),document.createTextNode(c.elegida==null?'Sin responder':'ABCD'[c.elegida]+'. '+q.opciones[c.elegida])]));
+      d.append(el('p',{class:'es-ex-buena'},[el('b',{text:'Correcta: '}),document.createTextNode('ABCD'[c.correcta]+'. '+q.opciones[c.correcta])]));
+      d.append(el('p',{class:'fte',text:q.explicacion+' (Fuente: '+pagTxt(q.doc,q.pag)+')'}));
+      P.append(d);
+    });
   }
 
   /* ---------- guía ---------- */
