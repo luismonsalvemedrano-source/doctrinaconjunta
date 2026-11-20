@@ -1695,7 +1695,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     var faltan=EXP.filter(function(x){return !hechos[x.clave]});
     $('ex-n').textContent='· '+EXF.length+' persona(s)';
     $('ex-resumen').innerHTML='';
-    [[EXF.length,'presentaron'],[prom,'promedio de la mejor nota'],[EXP.length?faltan.length+' de '+EXP.length:'sin listado','faltan por presentar']].forEach(function(c){
+    [[EXF.length,'presentaron'],[prom,'promedio de la mejor nota']].concat(EXP.length?[[faltan.length+' de '+EXP.length,'faltan por presentar']]:[]).forEach(function(c){
       var d=document.createElement('div'); var b=document.createElement('b'); b.textContent=c[0]; var sp=document.createElement('span'); sp.textContent=c[1]; d.append(b,sp); $('ex-resumen').append(d)});
     var fz=$('ex-faltan'); fz.innerHTML='';
     if(EXP.length&&faltan.length){var h=document.createElement('h4'); h.textContent='Personal que no ha presentado la prueba ('+faltan.length+')'; var ul=document.createElement('ul'); ul.className='ex-faltan';
