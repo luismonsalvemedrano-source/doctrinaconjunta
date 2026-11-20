@@ -1546,6 +1546,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   var sb=supabase.createClient(C.url,C.llave,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   window.__portalSb=sb; /* compartimentos restringidos */
   var $=function(id){return document.getElementById(id)};
+  var abrirRegistro=(location.hash==='#registro'); if(abrirRegistro){try{history.replaceState(null,'','#ingreso')}catch(_){}}
   var perfil=null, recuperando=false, ROLES={pendiente:'Pendiente de aprobación',lector:'Lector',editor:'Editor',administrador:'Administrador'};
   document.body.classList.add('app');
 
@@ -1601,7 +1602,10 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     document.body.classList.toggle('es-admin',!!perfil&&perfil.rol==='administrador');
     $('b-ingreso-txt').textContent=perfil?((perfil.grado?perfil.grado+' ':'')+String(perfil.nombre).split(' ')[0]):'Ingreso';
     if(recuperando) return;
-    if(!perfil){vista('v-ingresar');return}
+    if(!perfil){
+      /* enlace de invitación (estudio.html → «./#registro»): abre directamente el formulario de solicitud de cuenta */
+      if(abrirRegistro){abrirRegistro=false; vista('v-registro'); if(window.irSeccion) window.irSeccion('ingreso',true); setTimeout(function(){var x=$('v-registro'); if(x) x.scrollIntoView({behavior:'smooth',block:'start'})},1200); return}
+      vista('v-ingresar');return}
     vista('v-cuenta');
     $('c-nombre').textContent=(perfil.grado+' '+perfil.nombre).trim();
     $('c-correo').textContent=perfil.correo;
