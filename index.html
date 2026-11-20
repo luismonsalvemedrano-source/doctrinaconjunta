@@ -1125,7 +1125,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
     if(EX&&m!=='prueba') m='prueba'; modo=m; if(timer){clearInterval(timer);timer=null} if(exTimer){clearInterval(exTimer);exTimer=null}
     [].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){bt.setAttribute('aria-selected',bt.dataset.es===m?'true':'false')});
     P.textContent='';
-    ({infografia:infografia,prueba:prueba,ia:ia,guia:guia,practica:practica,simulacro:simulacro,fallas:fallas,glosario:glosario,revista:revista})[m]();
+    ({infografia:infografia,prueba:prueba,simulacro:prueba,ia:ia,guia:guia,practica:practica,fallas:fallas,glosario:glosario,revista:revista})[m]();
   }
   function pagTxt(doc,p){return (docs[doc]?docs[doc].corto:doc)+', p. '+p}
 
@@ -1195,7 +1195,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   }
   function exFormulario(msj){
     var c=exCfg()||{grados:[]};
-    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Prueba formal de conocimientos'}),
+    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Simulacro: prueba formal de conocimientos'}),
       el('ul',{class:'es-lista'},[el('li',{text:'Obligatoria para el personal de la ESDEG.'}),
         el('li',{text:'15 preguntas escogidas al azar entre las 220 del banco de estudio.'}),
         el('li',{text:'30 minutos desde que inicia. Al terminar el tiempo se entrega sola con lo que haya respondido.'}),
@@ -1360,7 +1360,7 @@ body[data-sec="observatorio"] main.env,body.obs-full main.env{zoom:1!important}
   /* ---------- fallas ---------- */
   function fallas(){
     var s=leer(), ids=Object.keys(s.fallas||{}); var l=D.preguntas.filter(function(q){return ids.indexOf(q.id)>=0});
-    if(!l.length){P.append(el('p',{class:'vacio',text:'No tiene preguntas falladas pendientes. Las que falle en la práctica o el simulacro aparecerán aquí hasta que las responda bien.'})); return}
+    if(!l.length){P.append(el('p',{class:'vacio',text:'No tiene preguntas falladas pendientes. Las que falle en la práctica aparecerán aquí hasta que las responda bien.'})); return}
     var b=el('button',{type:'button',class:'es-bt prim',text:'Repasar '+l.length+' preguntas falladas'});
     var z=el('button',{type:'button',class:'es-bt',text:'Borrar mi avance'});
     b.addEventListener('click',function(){sesion(mezclar(l),'el repaso',fallas)});

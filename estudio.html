@@ -400,11 +400,10 @@ body .mn-leer.pub{display:block;text-align:center;text-decoration:none}
   </div>
   <div class="es-nav" role="tablist" aria-label="Modos de estudio">
     <button type="button" data-es="infografia" aria-selected="true">Infografía</button>
-    <button type="button" data-es="prueba" aria-selected="false" class="es-tab-prueba">Prueba formal</button>
     
     <button type="button" data-es="guia" aria-selected="false">Guía</button>
     <button type="button" data-es="practica" aria-selected="false">Práctica</button>
-    <button type="button" data-es="simulacro" aria-selected="false">Simulacro</button>
+    <button type="button" data-es="prueba" aria-selected="false" class="es-tab-prueba">Simulacro</button>
     <button type="button" data-es="fallas" aria-selected="false">Mis fallas <span id="es-n-fallas"></span></button>
     <button type="button" data-es="glosario" aria-selected="false">Glosario</button>
     <button type="button" data-es="revista" aria-selected="false">La revista</button>
@@ -458,7 +457,7 @@ body .mn-leer.pub{display:block;text-align:center;text-decoration:none}
     if(EX&&m!=='prueba') m='prueba'; modo=m; if(timer){clearInterval(timer);timer=null} if(exTimer){clearInterval(exTimer);exTimer=null}
     [].forEach.call(document.querySelectorAll('#estudio .es-nav button'),function(bt){bt.setAttribute('aria-selected',bt.dataset.es===m?'true':'false')});
     P.textContent='';
-    ({infografia:infografia,prueba:prueba,ia:ia,guia:guia,practica:practica,simulacro:simulacro,fallas:fallas,glosario:glosario,revista:revista})[m]();
+    ({infografia:infografia,prueba:prueba,simulacro:prueba,ia:ia,guia:guia,practica:practica,fallas:fallas,glosario:glosario,revista:revista})[m]();
   }
   function pagTxt(doc,p){return (docs[doc]?docs[doc].corto:doc)+', p. '+p}
 
@@ -528,7 +527,7 @@ body .mn-leer.pub{display:block;text-align:center;text-decoration:none}
   }
   function exFormulario(msj){
     var c=exCfg()||{grados:[]};
-    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Prueba formal de conocimientos'}),
+    P.append(el('div',{class:'es-prueba-cab'},[el('h3',{text:'Simulacro: prueba formal de conocimientos'}),
       el('ul',{class:'es-lista'},[el('li',{text:'Obligatoria para el personal de la ESDEG.'}),
         el('li',{text:'15 preguntas escogidas al azar entre las 220 del banco de estudio.'}),
         el('li',{text:'30 minutos desde que inicia. Al terminar el tiempo se entrega sola con lo que haya respondido.'}),
@@ -693,7 +692,7 @@ body .mn-leer.pub{display:block;text-align:center;text-decoration:none}
   /* ---------- fallas ---------- */
   function fallas(){
     var s=leer(), ids=Object.keys(s.fallas||{}); var l=D.preguntas.filter(function(q){return ids.indexOf(q.id)>=0});
-    if(!l.length){P.append(el('p',{class:'vacio',text:'No tiene preguntas falladas pendientes. Las que falle en la práctica o el simulacro aparecerán aquí hasta que las responda bien.'})); return}
+    if(!l.length){P.append(el('p',{class:'vacio',text:'No tiene preguntas falladas pendientes. Las que falle en la práctica aparecerán aquí hasta que las responda bien.'})); return}
     var b=el('button',{type:'button',class:'es-bt prim',text:'Repasar '+l.length+' preguntas falladas'});
     var z=el('button',{type:'button',class:'es-bt',text:'Borrar mi avance'});
     b.addEventListener('click',function(){sesion(mezclar(l),'el repaso',fallas)});
